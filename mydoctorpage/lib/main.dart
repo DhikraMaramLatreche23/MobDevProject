@@ -23,7 +23,7 @@ class MainApp extends StatelessWidget {
       initialRoute: '/home',
       routes: {
         '/home': (context) => HomePage(),
-        '/DoctorPagePatientView': (context) => DoctorDoctor(),
+        '/DoctorPagePatientView': (context) => Doctor(),
         '/rdv': (context) => DoctorDoctor(),
       },
     );
