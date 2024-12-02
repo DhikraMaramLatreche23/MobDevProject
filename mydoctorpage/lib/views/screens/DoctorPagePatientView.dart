@@ -1,0 +1,168 @@
+import 'dart:math';
+
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:mydoctorpage/views/themes/colors.dart';
+import '../widgets/Calendar.dart';
+import '../widgets/DoctorCard.dart';
+import 'GenerateSlots.dart';
+
+
+
+class Doctor extends StatefulWidget {
+  const Doctor({super.key});
+
+  @override
+  State<Doctor> createState() => _DoctorState();
+}
+
+class _DoctorState extends State<Doctor> {
+  int? numOfEmptySlots;
+  int ?hourMaxx;
+
+
+  @override
+  Widget build(BuildContext context) {
+    appBar: AppBar(
+  automaticallyImplyLeading: true, 
+  title: const Text(""), 
+);
+
+    return Scaffold(
+        appBar: AppBar(title: const Text("")),
+        body: Container(
+           decoration: BoxDecoration(
+          
+          gradient: LinearGradient(
+            colors: [
+              backgroundGradient1,
+              backgroundGradient2,
+            ],
+            begin: Alignment.bottomRight,
+            end: Alignment.topLeft,
+          ),
+        ),
+
+          child: SingleChildScrollView(
+              
+              child: Column(children: [
+            DoctorCard(),
+          
+            const SizedBox(height: 20),
+            // Padding(padding: EdgeInsets.all(20)),
+            Center(
+              child: Text(
+                "Jours Disponibles",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xFF4A148C),
+                    fontSize: 20,
+                  
+                    ),
+              ),
+            ),
+          
+            
+            Calendar(),
+            Padding(padding: EdgeInsets.all(16)),
+            
+            
+            
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  // Morning Button
+                  _buildTimeSlotButton("Le matin", 5, 11),
+                  // Afternoon Button
+                  _buildTimeSlotButton("L'après midi", 5, 14),
+                  // Evening Button
+                  _buildTimeSlotButton("Le soir", 5, 18),
+                ],
+              ),
+              SizedBox(height: 12),
+              if (numOfEmptySlots != null && hourMaxx!= null)
+                GenerateSlots(
+                  numOfEmptySlots: numOfEmptySlots!,
+                  hourMaxx: hourMaxx!,
+                ),
+          
+                SizedBox(height: 20),
+              
+          ElevatedButton(
+  onPressed: () {
+    // Add your onPressed functionality here
+  },
+  style: ElevatedButton.styleFrom(
+  backgroundColor: dark_purple, 
+  foregroundColor: Colors.white, 
+  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(8),
+  ),
+  elevation: 5,
+),
+
+  child: Text(
+    "Prenez un rendez-vous",
+    style: TextStyle(
+      fontSize: 16, // Font size
+      fontWeight: FontWeight.w400, 
+      // Bold text
+    ),
+  ),
+)
+,
+SizedBox(height: 20),
+
+               
+            ],
+          ),
+                ),
+        ),
+    );
+  }
+
+  InkWell _buildTimeSlotButton(String label, int slots, int hourMax) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          print("$label clicked!");
+          numOfEmptySlots = slots;
+          hourMaxx = hourMax;
+          
+
+        });
+      },
+      borderRadius: BorderRadius.circular(10),
+      splashColor: Colors.white.withOpacity(0.2),
+      child: Container(
+        height: 40,
+        width: 130,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          gradient: LinearGradient(
+            colors: [
+              gradientColor1,
+              gradientColor2,
+            ],
+            begin: Alignment.bottomRight,
+            end: Alignment.topLeft,
+          ),
+        ),
+        child: Row(
+          children: [
+            IconButton(
+              onPressed: () {},
+              color: Colors.purple[900],
+              icon: Icon(Icons.watch_later_rounded),
+            ),
+            Expanded(child: Text(label, style: TextStyle(color: Colors.black))),
+          ],
+        )
+
+          ,
+          
+          
+        ));
+  }
+}

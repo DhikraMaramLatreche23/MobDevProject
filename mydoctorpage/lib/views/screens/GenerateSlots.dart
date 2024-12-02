@@ -1,0 +1,115 @@
+import 'package:flutter/material.dart';
+import 'DoctorPagePatientView.dart';
+import 'dart:math';
+
+
+
+class EmptySlot extends StatelessWidget {
+  int hourMax;
+  EmptySlot({required this.hourMax});
+
+  Duration getRandomTime() {
+    final random = Random();
+    int hour = random.nextInt(hourMax);
+    int min = random.nextInt(60);
+    return Duration(hours: hour , minutes: min) ;
+  }
+  String formatDuration(Duration duration) {
+  int hours = duration.inHours;
+  int minutes = duration.inMinutes % 60; // To get minutes within the hour
+
+  return '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}';
+}
+
+  @override
+  Widget build(BuildContext context) {
+    
+    return Container(
+      height: 30,
+      width:70,
+      margin: const EdgeInsets.all(4),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.blue),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Center(child:Text(formatDuration(getRandomTime()).toString())),
+    );
+  }
+}
+
+
+
+
+
+
+
+
+class GenerateSlots extends StatefulWidget {
+   final int numOfEmptySlots;
+   final int hourMaxx;
+   
+   const GenerateSlots({
+    required this.numOfEmptySlots,
+    required this.hourMaxx,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<GenerateSlots> createState() => _GenerateSlotsState();
+}
+
+class _GenerateSlotsState extends State<GenerateSlots> {
+  int count = 0;
+  @override
+  Widget build(BuildContext context) {
+    List<TimeOfDay> timeSlots = [];
+    // Morning
+    if (widget.hourMaxx == 11) {
+      for (int hour = 8; hour <= 11; hour++) {
+        timeSlots.add(TimeOfDay(hour: hour, minute: 0)); // Morning time slots
+      }
+    }
+    // Afternoon
+    else if (widget.hourMaxx == 14) {
+      for (int hour = 12; hour <= 14; hour++) {
+        timeSlots.add(TimeOfDay(hour: hour, minute: 0)); // Afternoon time slots
+      }
+    }
+    // Evening
+    else if (widget.hourMaxx == 18) {
+      for (int hour = 17; hour <= 18; hour++) {
+        timeSlots.add(TimeOfDay(hour: hour, minute: 0)); // Evening time slots
+      }
+    }
+
+  
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: timeSlots.map((timeSlot) {
+        return 
+          Container(
+          width: 120,  
+          height: 40, 
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: const Color.fromARGB(255, 184, 149, 189).withOpacity(0.5),
+            borderRadius: BorderRadius.circular(12),
+            
+          ),
+          child: ListTile(
+            title: Text(
+              '${timeSlot.format(context)}',
+              style: TextStyle(fontSize: 14),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      }).toList(),
+      
+    );
+    
+
+
+  }
+}
