@@ -6,6 +6,7 @@ import 'package:mydoctorpage/views/themes/colors.dart';
 import 'package:mydoctorpage/views/screens/DoctorPagePatientView.dart';
 
 class HomePage extends StatefulWidget {
+  static const String pageRoute = '/HomePage.dart';
   const HomePage({Key? key}) : super(key: key);
 
   @override
