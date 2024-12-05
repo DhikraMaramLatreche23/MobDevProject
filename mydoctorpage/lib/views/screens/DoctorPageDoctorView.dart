@@ -22,7 +22,7 @@ class _DoctorDoctorState extends State<DoctorDoctor> {
 
   @override
   Widget build(BuildContext context) {
-    appBar: AppBar(
+  appBar: AppBar(
   automaticallyImplyLeading: true, 
   title: const Text(""), 
 );

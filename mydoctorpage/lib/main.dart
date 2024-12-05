@@ -3,6 +3,9 @@ import 'package:mydoctorpage/views/screens/DoctorPageDoctorView.dart';
 import 'package:mydoctorpage/views/screens/DoctorPagePatientView.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mydoctorpage/views/screens/HomePage.dart';
+import 'package:mydoctorpage/views/screens/doc_modify_profile.dart';
+import 'package:mydoctorpage/views/screens/PatientScreen.dart';
+
 
 import 'views/screens/signchoose_screen/signchoose_screen.dart';
 import 'views/screens/signup/signUpDoctorPageOne.dart';
@@ -22,10 +25,14 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme: GoogleFonts.poppinsTextTheme(),
       ),
+
       home: const SignChooseScreen(),
+
+
       routes: {
         SignChooseScreen.pageRoute: (ctx) => const SignChooseScreen(),
         SignUpPatient.pageRoute: (ctx) => const SignUpPatient(),
@@ -38,6 +45,9 @@ class MainApp extends StatelessWidget {
         '/home': (context) => HomePage(),
         '/DoctorPagePatientView': (context) => Doctor(),
         '/rdv': (context) => DoctorDoctor(),
+        '/doc_profile': (context) => DocModifyProfile(),
+        '/patient_screen': (context) => PatientScreen(),
+        
       },
     );
   }
