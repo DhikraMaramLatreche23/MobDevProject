@@ -49,7 +49,7 @@ class _DoctorState extends State<Doctor> {
           child: SingleChildScrollView(
               
               child: Column(children: [
-            DoctorCard(),
+            const DoctorCard(),
           
             const SizedBox(height: 20),
             // Padding(padding: EdgeInsets.all(20)),
@@ -58,7 +58,7 @@ class _DoctorState extends State<Doctor> {
                 "Jours Disponibles",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: dark_blue,
+                    color: dark_bleu,
                     fontSize: 20,
                   
                     ),
@@ -66,8 +66,8 @@ class _DoctorState extends State<Doctor> {
             ),
           
             
-            Calendar(),
-            Padding(padding: EdgeInsets.all(16)),
+            const Calendar(),
+            const Padding(padding: EdgeInsets.all(16)),
             
             
             
@@ -82,14 +82,14 @@ class _DoctorState extends State<Doctor> {
                   _buildTimeSlotButton("Le soir", 5, 18),
                 ],
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               if (numOfEmptySlots != null && hourMaxx!= null)
                 GenerateSlots(
                   numOfEmptySlots: numOfEmptySlots!,
                   hourMaxx: hourMaxx!,
                 ),
           
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
               
           ElevatedButton(
   onPressed: () {
@@ -98,12 +98,12 @@ class _DoctorState extends State<Doctor> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text("Succès",style: TextStyle(color: Colors.green),),
-          content: Text("Vous recevrez une confirmation dans quelques heures."),
+          title: const Text("Succès",style: TextStyle(color: Colors.green),),
+          content: const Text("Vous recevrez une confirmation dans quelques heures."),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text("OK",style: TextStyle(color: dark_blue)),
+              child: Text("OK",style: TextStyle(color: dark_bleu)),
             ),
           ],
         ),
@@ -112,16 +112,16 @@ class _DoctorState extends State<Doctor> {
   
   },
   style: ElevatedButton.styleFrom(
-  backgroundColor: dark_blue, 
+  backgroundColor: dark_bleu, 
   foregroundColor: Colors.white, 
-  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
   shape: RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(8),
   ),
   elevation: 5,
 ),
 
-  child: Text(
+  child: const Text(
     "Prenez un rendez-vous",
     style: TextStyle(
       fontSize: 16, // Font size
@@ -131,7 +131,7 @@ class _DoctorState extends State<Doctor> {
   ),
 )
 ,
-SizedBox(height: 20),
+const SizedBox(height: 20),
 
                
             ],
@@ -173,9 +173,9 @@ SizedBox(height: 20),
             IconButton(
               onPressed: () {},
               color: blue,
-              icon: Icon(Icons.watch_later_rounded),
+              icon: const Icon(Icons.watch_later_rounded),
             ),
-            Expanded(child: Text(label, style: TextStyle(color: Colors.black))),
+            Expanded(child: Text(label, style: const TextStyle(color: Colors.black))),
           ],
         )
 
