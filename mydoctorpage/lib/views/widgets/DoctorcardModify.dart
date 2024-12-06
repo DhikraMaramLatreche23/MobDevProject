@@ -38,7 +38,7 @@ class _DoctorCardModifyState extends State<DoctorCardModify> {
       onPressed: () {
         setState(() {});
       },
-      color: purple,
+      color: Colors.blue,
       icon: Icon(Icons.mode_edit_sharp),
       highlightColor: Colors.white,
     ),
@@ -48,7 +48,7 @@ class _DoctorCardModifyState extends State<DoctorCardModify> {
                               "Dr Adam Jones",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.purple[900],
+                                  color: Colors.blue[900],
                                   fontSize: 35),
                             ),
                             const SizedBox(height: 18),
@@ -56,7 +56,7 @@ class _DoctorCardModifyState extends State<DoctorCardModify> {
                               "Specialiste en cardiologie",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.purple[900],
+                                color: Colors.blue[900],
                               ),
                             ),
                             const SizedBox(height: 30),
@@ -68,19 +68,19 @@ class _DoctorCardModifyState extends State<DoctorCardModify> {
                                       onPressed: () {
                                         setState(() {});
                                       },
-                                      color: Colors.purple,
+                                      color: blue,
                                       icon: Icon(Icons.phone)),
                                   IconButton(
                                       onPressed: () {
                                         setState(() {});
                                       },
-                                      color: Colors.purple,
+                                      color: blue,
                                       icon: Icon(Icons.pin_drop)),
                                   IconButton(
                                       onPressed: () {
                                         setState(() {});
                                       },
-                                      color: const Color(0xFF9C27B0),
+                                      color: blue,
                                       icon: Icon(Icons.email)),
                                 ])
                           ],
