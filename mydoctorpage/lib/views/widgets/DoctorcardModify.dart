@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:mydoctorpage/views/themes/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -27,7 +26,7 @@ class _DoctorCardModifyState extends State<DoctorCardModify> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Column(children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -54,7 +53,7 @@ class _DoctorCardModifyState extends State<DoctorCardModify> {
                             setState(() {});
                           },
                           color: blue,
-                          icon: Icon(Icons.mode_edit_sharp),
+                          icon: const Icon(Icons.mode_edit_sharp),
                           highlightColor: Colors.white,
                         ),
                       ],
@@ -63,7 +62,7 @@ class _DoctorCardModifyState extends State<DoctorCardModify> {
                       "Dr Adam Jones",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Colors.blue[900],
+                          color: dark_bleu,
                           fontSize: 35),
                     ),
                     const SizedBox(height: 18),
@@ -71,7 +70,7 @@ class _DoctorCardModifyState extends State<DoctorCardModify> {
                       "Specialiste en cardiologie",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.blue[900],
+                        color: dark_bleu,
                       ),
                     ),
                     const SizedBox(height: 30),
@@ -83,20 +82,20 @@ class _DoctorCardModifyState extends State<DoctorCardModify> {
                               
                             },
                             color: blue,
-                            icon: Icon(Icons.phone),
+                            icon: const Icon(Icons.phone),
                           ),
                           IconButton(
                               onPressed: () {
                                 
                               },
                               color: blue,
-                              icon: Icon(Icons.pin_drop)),
+                              icon: const Icon(Icons.pin_drop)),
                           IconButton(
                               onPressed: () {
                                 
                               },
                               color: blue,
-                              icon: Icon(Icons.email)),
+                              icon: const Icon(Icons.email)),
                         ])
                   ],
                 ),
@@ -105,9 +104,9 @@ class _DoctorCardModifyState extends State<DoctorCardModify> {
           ),
           const SizedBox(width: 25),
           Container(
-              margin: EdgeInsets.all(7),
+              margin: const EdgeInsets.all(7),
               width: double.infinity,
-              child: Row(
+              child: const Row(
                 children: [
                   Expanded(
                       child: Text(
