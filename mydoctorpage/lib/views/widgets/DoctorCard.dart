@@ -28,7 +28,7 @@ class _DoctorCardState extends State<DoctorCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Column(children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -50,7 +50,7 @@ class _DoctorCardState extends State<DoctorCard> {
                       "Dr Adam Jones",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Colors.blue[900],
+                          color: dark_bleu,
                           fontSize: 35),
                     ),
                     const SizedBox(height: 18),
@@ -58,7 +58,7 @@ class _DoctorCardState extends State<DoctorCard> {
                       "Specialiste en cardiologie",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.blue[900],
+                        color: dark_bleu,
                       ),
                     ),
                     const SizedBox(height: 30),
@@ -77,7 +77,7 @@ class _DoctorCardState extends State<DoctorCard> {
                                 ),
                               );
                               // Automatically dismiss the dialog after 2 seconds
-                              Future.delayed(Duration(seconds: 1), () {
+                              Future.delayed(const Duration(seconds: 1), () {
                                 if (Navigator.canPop(context)) {
                                   Navigator.of(context)
                                       .pop(); // Close the dialog
@@ -85,14 +85,14 @@ class _DoctorCardState extends State<DoctorCard> {
                               });
                             },
                             color: blue,
-                            icon: Icon(Icons.phone),
+                            icon: const Icon(Icons.phone),
                           ),
                           IconButton(
                               onPressed: () {
                                 openGoogleMaps(37.7749, -122.4194);
                               },
                               color: blue,
-                              icon: Icon(Icons.pin_drop)),
+                              icon: const Icon(Icons.pin_drop)),
                           IconButton(
                               onPressed: () {
                                 Clipboard.setData(ClipboardData(
@@ -105,7 +105,7 @@ class _DoctorCardState extends State<DoctorCard> {
                                   ),
                                 );
                                 // Automatically dismiss the dialog after 2 seconds
-                                Future.delayed(Duration(seconds: 1), () {
+                                Future.delayed(const Duration(seconds: 1), () {
                                   if (Navigator.canPop(context)) {
                                     Navigator.of(context)
                                         .pop(); // Close the dialog
@@ -113,7 +113,7 @@ class _DoctorCardState extends State<DoctorCard> {
                                 });
                               },
                               color: blue,
-                              icon: Icon(Icons.email)),
+                              icon: const Icon(Icons.email)),
                         ])
                   ],
                 ),
@@ -122,9 +122,9 @@ class _DoctorCardState extends State<DoctorCard> {
           ),
           const SizedBox(width: 25),
           Container(
-              margin: EdgeInsets.all(7),
+              margin: const EdgeInsets.all(7),
               width: double.infinity,
-              child: Row(
+              child: const Row(
                 children: [
                   Expanded(
                       child: Text(
