@@ -12,10 +12,8 @@ import 'package:mydoctorpage/views/screens/CategoryKidneys.dart';
 import 'package:mydoctorpage/views/screens/CategoryGastro.dart';
 import 'package:mydoctorpage/views/screens/CategoryBones.dart';
 import 'package:mydoctorpage/views/screens/CategoryPneumo.dart';
-import 'package:mydoctorpage/views/screens/doc_modify_profile.dart';
-import 'package:mydoctorpage/views/screens/PatientScreen.dart';
-
 import 'views/screens/signchoose_screen/signchoose_screen.dart';
+import 'package:mydoctorpage/views/screens/doc_modify_profile.dart';
 import 'views/screens/signup/signUpDoctorPageOne.dart';
 import 'views/screens/signup/signUpPatientPageOne.dart';
 import 'views/screens/signup/signUpPatientPageTwo.dart';
@@ -50,6 +48,7 @@ class MainApp extends StatelessWidget {
         SignDoctor.pageRoute: (ctx) => const SignDoctor(),
         Logindoctor.pageRoute: (ctx) => const Logindoctor(),
         Loginpatient.pageRoute: (ctx) => const Loginpatient(),
+       
 
         '/home': (context) => const HomePage(),
         '/DoctorPagePatientView': (context) => const Doctor(),
@@ -62,7 +61,8 @@ class MainApp extends StatelessWidget {
         '/CategoryKidneysPage': (context) => const CategoryKidneysPage(),
         '/CategoryBonesPage': (context) => const CategoryBonesPage(),
         '/CategoryGastroPage': (context) => const CategoryGastroPage(),
-        '/CategoryPneumoPage': (context) => const CategoryPneumoPage(),        
+        '/CategoryPneumoPage': (context) => const CategoryPneumoPage(),    
+         '/doc_modify_profile': (context)=> const DocModifyProfile(),    
         
       },
     );
