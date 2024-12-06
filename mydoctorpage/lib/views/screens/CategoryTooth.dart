@@ -4,14 +4,14 @@ import 'package:mydoctorpage/views/widgets/DoctorWidget.dart';
 import 'package:mydoctorpage/views/themes/colors.dart';
 import 'package:mydoctorpage/views/widgets/CategoryCard.dart';
 
-class CategoryGastroPage extends StatefulWidget {
-  const CategoryGastroPage({super.key});
+class CategoryPage extends StatefulWidget {
+  const CategoryPage({super.key});
 
   @override
-  _CategoryGastroPageState createState() => _CategoryGastroPageState();
+  _CategoryPageState createState() => _CategoryPageState();
 }
 
-class _CategoryGastroPageState extends State<CategoryGastroPage> {
+class _CategoryPageState extends State<CategoryPage> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -45,17 +45,14 @@ class _CategoryGastroPageState extends State<CategoryGastroPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Category'),
-      ),
+      appBar: AppBar(title: const Text('Category'),),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
-          const CategoryCard(
-            categoryName: "Gastro",
-            description:
-                "Choisissez le docteur qui vous convient, spécialisé en Gastro-enterologie",
-            imagePath: "assets/gastro.png",
+           const CategoryCard(
+            categoryName: "Dentaire",
+            description: "Choisissez le docteur qui vous convient, spécialisé en dentaire",
+            imagePath: "assets/tooth.png",
           ),
           const Text(
             "Doctors in this Category",
@@ -67,48 +64,34 @@ class _CategoryGastroPageState extends State<CategoryGastroPage> {
           ),
           const SizedBox(height: 16),
           DoctorCard(
-            doctorName: "Dr Zair Youcef",
-            specialty: "Spécialiste en Gastro-\nenterologie",
+            doctorName: "Dr Adam Jones",
+            specialty: "Spécialiste en Cardiologie",
             phonenumber: "0553978862",
             location: "Rue des roses 54 lotissement Zhun, Alger",
             onTap: _onBookAppointment,
           ),
           const SizedBox(height: 16),
           DoctorCard(
-            doctorName: "Dr Benkanoun",
-            specialty: "Spécialiste en Gastro-\nenterologie",
+            doctorName: "Dr Sarah Ben",
+            specialty: "Spécialiste en Neurologie",
             phonenumber: "0553123456",
             location: "Centre Médical Ibn Sina, Alger",
             onTap: _onBookAppointment,
           ),
           const SizedBox(height: 16),
           DoctorCard(
-            doctorName: "Dr Kouidri",
-            specialty: "Spécialiste en Gastro-\nenterologie",
+            doctorName: "Dr Yasmine Oud",
+            specialty: "Spécialiste en Dentisterie",
             phonenumber: "0553546546",
             location: "Clinique El Amel, Oran",
             onTap: _onBookAppointment,
           ),
           const SizedBox(height: 16),
           DoctorCard(
-            doctorName: "Dr Nawal Ferchouli\n Boukkari",
-            specialty: "Spécialiste en Gastro-\nenterologie",
+            doctorName: "Dr Amir Haddad",
+            specialty: "Spécialiste en Pédiatrie",
             phonenumber: "0553345678",
-            location: "Cheraga, Constantine",
-            onTap: _onBookAppointment,
-          ),
-          DoctorCard(
-            doctorName: "Dr Meribout eps\n Boutemine",
-            specialty: "Spécialiste en Gastro-\nenterologie",
-            phonenumber: "0553345678",
-            location: "Cheraga, Constantine",
-            onTap: _onBookAppointment,
-          ),
-          DoctorCard(
-            doctorName: "Dr Naseri",
-            specialty: "Spécialiste en Gastro-\nenterologie",
-            phonenumber: "0553345678",
-            location: "Cheraga, Constantine",
+            location: "Polyclinique El Hana, Constantine",
             onTap: _onBookAppointment,
           ),
         ],
