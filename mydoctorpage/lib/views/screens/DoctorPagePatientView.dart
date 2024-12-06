@@ -32,7 +32,7 @@ class _DoctorState extends State<Doctor> {
 // );
 
     return Scaffold(
-        appBar: AppBar(title: const Text("")),
+        // appBar: AppBar(title: const Text("")),
         body: Container(
            decoration: BoxDecoration(
           
