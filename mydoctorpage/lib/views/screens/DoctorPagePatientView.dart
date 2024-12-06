@@ -1,11 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mydoctorpage/views/themes/colors.dart';
 import '../widgets/Calendar.dart';
 import '../widgets/DoctorCard.dart';
 import 'GenerateSlots.dart';
+
 
 
 
@@ -17,16 +19,17 @@ class Doctor extends StatefulWidget {
 }
 
 class _DoctorState extends State<Doctor> {
+  final String phone = "+1234567890";
   int? numOfEmptySlots;
   int ?hourMaxx;
 
 
   @override
   Widget build(BuildContext context) {
-    appBar: AppBar(
-  automaticallyImplyLeading: true, 
-  title: const Text(""), 
-);
+//     appBar: AppBar(
+//   automaticallyImplyLeading: true, 
+//   title: const Text(""), 
+// );
 
     return Scaffold(
         appBar: AppBar(title: const Text("")),
@@ -90,7 +93,23 @@ class _DoctorState extends State<Doctor> {
               
           ElevatedButton(
   onPressed: () {
-    // Add your onPressed functionality here
+    Clipboard.setData(ClipboardData(text: phone)); // Copy to clipboard
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Succès",style: TextStyle(color: Colors.green),),
+          content: Text("Vous recevrez une confirmation dans quelques heures."),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text("OK",style: TextStyle(color: dark_blue)),
+            ),
+          ],
+        ),
+      );
+    });
+  
   },
   style: ElevatedButton.styleFrom(
   backgroundColor: dark_blue, 
