@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:mydoctorpage/views/screens/AllCategories.dart';
 import 'package:mydoctorpage/views/screens/DoctorPageDoctorView.dart';
 import 'package:mydoctorpage/views/screens/DoctorPagePatientView.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mydoctorpage/views/screens/HomePage.dart';
+import 'package:mydoctorpage/views/screens/CategoryTooth.dart';
+import 'package:mydoctorpage/views/screens/CategoryHeart.dart';
+import 'package:mydoctorpage/views/screens/CategoryBrain.dart';
+import 'package:mydoctorpage/views/screens/CategoryEye.dart';
+import 'package:mydoctorpage/views/screens/CategoryKidneys.dart';
+import 'package:mydoctorpage/views/screens/CategoryGastro.dart';
+import 'package:mydoctorpage/views/screens/CategoryBones.dart';
+import 'package:mydoctorpage/views/screens/CategoryPneumo.dart';
 import 'package:mydoctorpage/views/screens/doc_modify_profile.dart';
 import 'package:mydoctorpage/views/screens/PatientScreen.dart';
-
 
 import 'views/screens/signchoose_screen/signchoose_screen.dart';
 import 'views/screens/signup/signUpDoctorPageOne.dart';
@@ -34,6 +42,7 @@ class MainApp extends StatelessWidget {
 
 
       routes: {
+        HomePage.pageRoute: (ctx) => const HomePage(),
         SignChooseScreen.pageRoute: (ctx) => const SignChooseScreen(),
         SignUpPatient.pageRoute: (ctx) => const SignUpPatient(),
         SignPatient.pageRoute: (ctx) => const SignPatient(),
@@ -41,12 +50,19 @@ class MainApp extends StatelessWidget {
         SignDoctor.pageRoute: (ctx) => const SignDoctor(),
         Logindoctor.pageRoute: (ctx) => const Logindoctor(),
         Loginpatient.pageRoute: (ctx) => const Loginpatient(),
-      
-        '/home': (context) => HomePage(),
-        '/DoctorPagePatientView': (context) => Doctor(),
-        '/rdv': (context) => DoctorDoctor(),
-        '/doc_profile': (context) => DocModifyProfile(),
-        '/patient_screen': (context) => PatientScreen(),
+
+        '/home': (context) => const HomePage(),
+        '/DoctorPagePatientView': (context) => const Doctor(),
+        '/rdv': (context) => const DoctorDoctor(),
+        '/CategoryPage': (context) => const CategoryPage(),
+        '/allcategories': (context) => const Allcategories(),
+        '/CategoryHeartPage': (context) => const CategoryHeartPage(),
+        '/CategoryBrainPage': (context) => const CategoryBrainPage(),
+        '/CategoryEyePage': (context) => const CategoryEyePage(),
+        '/CategoryKidneysPage': (context) => const CategoryKidneysPage(),
+        '/CategoryBonesPage': (context) => const CategoryBonesPage(),
+        '/CategoryGastroPage': (context) => const CategoryGastroPage(),
+        '/CategoryPneumoPage': (context) => const CategoryPneumoPage(),        
         
       },
     );
