@@ -22,7 +22,7 @@ class _DoctorDoctorState extends State<DoctorDoctor> {
 
   @override
   Widget build(BuildContext context) {
-  appBar: AppBar(
+    appBar: AppBar(
   automaticallyImplyLeading: true, 
   title: const Text(""), 
 );
@@ -54,7 +54,7 @@ class _DoctorDoctorState extends State<DoctorDoctor> {
                 "Jours Disponibles",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: const Color(0xFF4A148C),
+                    color: dark_blue,
                     fontSize: 20,
                   
                     ),
@@ -66,7 +66,7 @@ class _DoctorDoctorState extends State<DoctorDoctor> {
             Padding(padding: EdgeInsets.all(16)),
             
             
-            
+               
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -92,7 +92,7 @@ class _DoctorDoctorState extends State<DoctorDoctor> {
     // Add your onPressed functionality here
   },
   style: ElevatedButton.styleFrom(
-  backgroundColor: dark_purple, 
+  backgroundColor: dark_blue, 
   foregroundColor: Colors.white, 
   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
   shape: RoundedRectangleBorder(
@@ -119,6 +119,7 @@ SizedBox(height: 20),
                 ),
         ),
     );
+  
   }
 
   InkWell _buildTimeSlotButton(String label, int slots, int hourMax) {
@@ -136,7 +137,7 @@ SizedBox(height: 20),
       splashColor: Colors.white.withOpacity(0.2),
       child: Container(
         height: 40,
-        width: 130,
+        width: 110,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           gradient: LinearGradient(
@@ -152,12 +153,19 @@ SizedBox(height: 20),
           children: [
             IconButton(
               onPressed: () {},
-              color: Colors.purple[900],
+              color: blue,
               icon: Icon(Icons.watch_later_rounded),
             ),
             Expanded(child: Text(label, style: TextStyle(color: Colors.black))),
           ],
         )
+
+          ,
+          
+          
+        ));
+  }
+}
 
           ,
           
