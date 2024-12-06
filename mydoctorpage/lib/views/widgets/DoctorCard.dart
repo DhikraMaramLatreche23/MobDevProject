@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mydoctorpage/views/themes/colors.dart';
 
 
 class DoctorCard extends StatefulWidget {
@@ -34,7 +35,7 @@ class _DoctorCardState extends State<DoctorCard> {
                               "Dr Adam Jones",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.purple[900],
+                                  color: Colors.blue[900],
                                   fontSize: 35),
                             ),
                             const SizedBox(height: 18),
@@ -42,7 +43,7 @@ class _DoctorCardState extends State<DoctorCard> {
                               "Specialiste en cardiologie",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.purple[900],
+                                color: Colors.blue[900],
                               ),
                             ),
                             const SizedBox(height: 30),
@@ -54,19 +55,19 @@ class _DoctorCardState extends State<DoctorCard> {
                                       onPressed: () {
                                         setState(() {});
                                       },
-                                      color: Colors.purple,
+                                      color: blue,
                                       icon: Icon(Icons.phone)),
                                   IconButton(
                                       onPressed: () {
                                         setState(() {});
                                       },
-                                      color: Colors.purple,
+                                      color: blue,
                                       icon: Icon(Icons.pin_drop)),
                                   IconButton(
                                       onPressed: () {
                                         setState(() {});
                                       },
-                                      color: const Color(0xFF9C27B0),
+                                      color: blue,
                                       icon: Icon(Icons.email)),
                                 ])
                           ],
