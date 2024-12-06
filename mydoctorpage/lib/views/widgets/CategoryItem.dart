@@ -1,59 +1,16 @@
-// import 'package:flutter/material.dart';
-
-// class CategoryItem extends StatelessWidget {
-//   final String title;
-//   final IconData icon;
-
-//   const CategoryItem({
-//     Key? key,
-//     required this.title,
-//     required this.icon,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       width: 100, // Adjust the width as needed
-//       margin: const EdgeInsets.symmetric(horizontal: 8.0),
-//       child: Column(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: [
-//           CircleAvatar(
-//             radius: 30, // Adjust the radius as needed
-//             backgroundColor: Colors.blue[100], // Background color for the icon
-//             child: Icon(
-//               icon,
-//               size: 40,
-//               color: Colors.blue, // Icon color
-//             ),
-//           ),
-//           const SizedBox(height: 8),
-//           Text(
-//             title,
-//             textAlign: TextAlign.center,
-//             style: const TextStyle(
-//               fontSize: 14,
-//               fontWeight: FontWeight.bold,
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
-
 import 'package:flutter/material.dart';
 
 class CategoryItem extends StatelessWidget {
   final String title;
   final String imagePath;
+  final VoidCallback onTap;
 
   const CategoryItem({
     Key? key,
     required this.title,
     required this.imagePath,
-  }) : super(key: key);
+    required this.onTap,
+  });
 
   @override
 
@@ -78,7 +35,7 @@ class CategoryItem extends StatelessWidget {
           const SizedBox(height: 10),
           Text(
             title,
-            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+            style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
           ),
         ],
       ),
