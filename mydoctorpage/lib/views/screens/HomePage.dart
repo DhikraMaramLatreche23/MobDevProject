@@ -3,6 +3,7 @@ import 'package:mydoctorpage/views/widgets/BottomBar.dart';
 import 'package:mydoctorpage/views/widgets/DoctorWidget.dart';
 import 'package:mydoctorpage/views/widgets/CategoryItem.dart';
 import 'package:mydoctorpage/views/themes/colors.dart';
+import 'package:mydoctorpage/views/widgets/BottomDrawer.dart';
 
 class HomePage extends StatefulWidget {
   static const String pageRoute = "/HomePage";
@@ -13,6 +14,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late TextEditingController _searchController;
+  late FocusNode _searchFocusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController = TextEditingController();
+    _searchFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    _searchFocusNode.dispose();
+    super.dispose();
+  }
+
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -27,7 +45,7 @@ class _HomePageState extends State<HomePage> {
           Navigator.pushReplacementNamed(context, '/rdv');
           break;
         case 2:
-          Navigator.pushReplacementNamed(context, '/searchDoctor');
+          _searchFocusNode.requestFocus();
           break;
         case 3:
           Navigator.pushReplacementNamed(context, '/notifications');
@@ -104,14 +122,19 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              const Positioned(
+               Positioned(
                 top: 30,
                 left: 16,
                 right: 16,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(Icons.menu, color: dark_purple),
+                    IconButton(
+                      icon: const Icon(Icons.menu, color: dark_purple),
+                      onPressed: () {
+                        showCustomBottomDrawer(context);
+                      },
+                    ),
                     CircleAvatar(
                       backgroundColor: Colors.white,
                       child: Icon(Icons.person, color: dark_purple),
@@ -148,7 +171,9 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ],
                   ),
-                  child: const TextField(
+                  child: TextField(
+                    controller: _searchController,
+                    focusNode: _searchFocusNode,
                     decoration: InputDecoration(
                       hintText: "Chercher un docteur",
                       border: InputBorder.none,
