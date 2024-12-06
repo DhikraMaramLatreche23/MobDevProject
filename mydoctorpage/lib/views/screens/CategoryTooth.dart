@@ -65,7 +65,7 @@ class _CategoryPageState extends State<CategoryPage> {
           const SizedBox(height: 16),
           DoctorCard(
             doctorName: "Dr Adam Jones",
-            specialty: "Spécialiste en Cardiologie",
+            specialty: "Spécialiste en Dentaire",
             phonenumber: "0553978862",
             location: "Rue des roses 54 lotissement Zhun, Alger",
             onTap: _onBookAppointment,
@@ -73,7 +73,7 @@ class _CategoryPageState extends State<CategoryPage> {
           const SizedBox(height: 16),
           DoctorCard(
             doctorName: "Dr Sarah Ben",
-            specialty: "Spécialiste en Neurologie",
+            specialty: "Spécialiste en Dentaire",
             phonenumber: "0553123456",
             location: "Centre Médical Ibn Sina, Alger",
             onTap: _onBookAppointment,
@@ -81,7 +81,7 @@ class _CategoryPageState extends State<CategoryPage> {
           const SizedBox(height: 16),
           DoctorCard(
             doctorName: "Dr Yasmine Oud",
-            specialty: "Spécialiste en Dentisterie",
+            specialty: "Spécialiste en Dentaire",
             phonenumber: "0553546546",
             location: "Clinique El Amel, Oran",
             onTap: _onBookAppointment,
@@ -89,7 +89,7 @@ class _CategoryPageState extends State<CategoryPage> {
           const SizedBox(height: 16),
           DoctorCard(
             doctorName: "Dr Amir Haddad",
-            specialty: "Spécialiste en Pédiatrie",
+            specialty: "Spécialiste en Dentaire",
             phonenumber: "0553345678",
             location: "Polyclinique El Hana, Constantine",
             onTap: _onBookAppointment,
