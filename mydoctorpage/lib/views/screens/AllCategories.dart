@@ -45,14 +45,14 @@ class _AllcategoriesState extends State<Allcategories> {
   Widget build(BuildContext context) {
     // Dummy categories data
     final categories = [
-      {'title': 'Dentaire', 'imagePath': 'assets/tooth.png' ,},
-      {'title': 'Cardiologie', 'imagePath': 'assets/heart.png'},
-      {'title': 'Ophtalmologie', 'imagePath': 'assets/eye.png'},
-      {'title': 'Neurologie', 'imagePath': 'assets/brain.png'},
-      {'title': 'Orthopidiste', 'imagePath': 'assets/bones.png'},
-      {'title': 'Eurologie', 'imagePath': 'assets/kidneys.png'},
-      {'title': 'Gastronomie', 'imagePath': 'assets/gastro.png'},
-      {'title': 'Pneumologie', 'imagePath': 'assets/lungs.png'},
+      {'title': 'Dentaire', 'imagePath': 'assets/tooth.png' , 'onTap': '/CategoryPage'},
+      {'title': 'Cardiologie', 'imagePath': 'assets/heart.png', 'onTap': '/CategoryHeartPage'},
+      {'title': 'Ophtalmologie', 'imagePath': 'assets/eye.png', 'onTap': '/CategoryEyePage'},
+      {'title': 'Neurologie', 'imagePath': 'assets/brain.png', 'onTap': '/CategoryBrainPage'},
+      {'title': 'Orthopidiste', 'imagePath': 'assets/bones.png', 'onTap': '/CategoryBonesPage'},
+      {'title': 'Eurologie', 'imagePath': 'assets/kidneys.png', 'onTap': '/CategoryKidneysPage'},
+      {'title': 'Gastronomie', 'imagePath': 'assets/gastro.png', 'onTap': '/CategoryGastroPage'},
+      {'title': 'Pneumologie', 'imagePath': 'assets/lungs.png', 'onTap': '/CategoryPneumoPage'},
       {'title': 'Genecologie', 'imagePath': 'assets/geneco.png'},
       {'title': 'Radiologie', 'imagePath': 'assets/radio.png'},
       {'title': 'ORL', 'imagePath': 'assets/orl.png'},
@@ -93,10 +93,7 @@ class _AllcategoriesState extends State<Allcategories> {
             return CategoryItem(
               title: category['title']!,
               imagePath: category['imagePath']!,
-              onTap: () {
-                // Handle tap on category item
-                print('Tapped on ${category['title']}');
-              },
+              onTap: _onCategoryPage,
             );
           },
         ),
