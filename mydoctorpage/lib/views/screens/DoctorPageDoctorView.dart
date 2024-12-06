@@ -22,10 +22,10 @@ class _DoctorDoctorState extends State<DoctorDoctor> {
 
   @override
   Widget build(BuildContext context) {
-    appBar: AppBar(
-  automaticallyImplyLeading: true, 
-  title: const Text(""), 
-);
+//     appBar: AppBar(
+//   automaticallyImplyLeading: true, 
+//   title: const Text(""), 
+// );
 
     return Scaffold(
         appBar: AppBar(title: const Text("")),
@@ -87,30 +87,8 @@ class _DoctorDoctorState extends State<DoctorDoctor> {
           
                 SizedBox(height: 20),
               
-          ElevatedButton(
-  onPressed: () {
-    // Add your onPressed functionality here
-  },
-  style: ElevatedButton.styleFrom(
-  backgroundColor: dark_blue, 
-  foregroundColor: Colors.white, 
-  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-  shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(8),
-  ),
-  elevation: 5,
-),
+        
 
-  child: Text(
-    "Prenez un rendez-vous",
-    style: TextStyle(
-      fontSize: 16, // Font size
-      fontWeight: FontWeight.w400, 
-      // Bold text
-    ),
-  ),
-)
-,
 SizedBox(height: 20),
 
                
@@ -159,13 +137,6 @@ SizedBox(height: 20),
             Expanded(child: Text(label, style: TextStyle(color: Colors.black))),
           ],
         )
-
-          ,
-          
-          
-        ));
-  }
-}
 
           ,
           
