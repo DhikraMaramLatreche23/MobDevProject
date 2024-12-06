@@ -45,7 +45,7 @@ class _DoctorDoctorState extends State<DoctorDoctor> {
           child: SingleChildScrollView(
               
               child: Column(children: [
-            DoctorCardModify(),
+            const DoctorCardModify(),
           
             const SizedBox(height: 20),
             // Padding(padding: EdgeInsets.all(20)),
@@ -54,7 +54,7 @@ class _DoctorDoctorState extends State<DoctorDoctor> {
                 "Jours Disponibles",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: dark_blue,
+                    color: dark_bleu,
                     fontSize: 20,
                   
                     ),
@@ -62,8 +62,8 @@ class _DoctorDoctorState extends State<DoctorDoctor> {
             ),
           
             
-            Calendar(),
-            Padding(padding: EdgeInsets.all(16)),
+            const Calendar(),
+            const Padding(padding: EdgeInsets.all(16)),
             
             
                
@@ -78,18 +78,18 @@ class _DoctorDoctorState extends State<DoctorDoctor> {
                   _buildTimeSlotButton("Le soir", 5, 18),
                 ],
               ),
-              SizedBox(height: 12),
+              const SizedBox(height: 12),
               if (numOfEmptySlots != null && hourMaxx!= null)
                 GenerateSlots(
                   numOfEmptySlots: numOfEmptySlots!,
                   hourMaxx: hourMaxx!,
                 ),
           
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
               
         
 
-SizedBox(height: 20),
+const SizedBox(height: 20),
 
                
             ],
@@ -132,9 +132,9 @@ SizedBox(height: 20),
             IconButton(
               onPressed: () {},
               color: blue,
-              icon: Icon(Icons.watch_later_rounded),
+              icon: const Icon(Icons.watch_later_rounded),
             ),
-            Expanded(child: Text(label, style: TextStyle(color: Colors.black))),
+            Expanded(child: Text(label, style: const TextStyle(color: Colors.black))),
           ],
         )
 
