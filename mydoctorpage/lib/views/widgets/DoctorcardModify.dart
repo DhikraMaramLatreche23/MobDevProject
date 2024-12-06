@@ -38,7 +38,7 @@ class _DoctorCardModifyState extends State<DoctorCardModify> {
       onPressed: () {
         setState(() {});
       },
-      color: Colors.blue,
+      color: blue,
       icon: Icon(Icons.mode_edit_sharp),
       highlightColor: Colors.white,
     ),
