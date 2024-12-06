@@ -3,11 +3,10 @@ import 'package:mydoctorpage/views/widgets/BottomBar.dart';
 import 'package:mydoctorpage/views/widgets/DoctorWidget.dart';
 import 'package:mydoctorpage/views/widgets/CategoryItem.dart';
 import 'package:mydoctorpage/views/themes/colors.dart';
-import 'package:mydoctorpage/views/screens/DoctorPagePatientView.dart';
 
 class HomePage extends StatefulWidget {
-  static const String pageRoute = '/HomePage.dart';
-  const HomePage({Key? key}) : super(key: key);
+  static const String pageRoute = "/HomePage";
+  const HomePage({super.key});
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -44,6 +43,46 @@ class _HomePageState extends State<HomePage> {
     Navigator.pushNamed(context, '/DoctorPagePatientView');
   }
 
+  void _onCategoryPage() {
+    print("Navigating to Category Page");
+    Navigator.pushNamed(context, '/CategoryPage');
+  }
+
+  void _onCategoryHeartPage() {
+    print("Navigating to Category heart Page");
+    Navigator.pushNamed(context, '/CategoryHeartPage');
+  }
+
+  void _onCategoryBrainPage() {
+    print("Navigating to Category brain Page");
+    Navigator.pushNamed(context, '/CategoryBrainPage');
+  }
+
+  void _onCategoryEyePage() {
+    print("Navigating to Category eye Page");
+    Navigator.pushNamed(context, '/CategoryEyePage');
+  }
+
+  void _onCategoryKidneysPage() {
+    print("Navigating to Category Urologie Page");
+    Navigator.pushNamed(context, '/CategoryKidneysPage');
+  }
+
+  void _onCategoryBonesPage() {
+    print("Navigating to Category Urologie Page");
+    Navigator.pushNamed(context, '/CategoryBonesPage');
+  }
+
+  void _onCategoryGastroPage() {
+    print("Navigating to Category Urologie Page");
+    Navigator.pushNamed(context, '/CategoryGastroPage');
+  }
+
+  void _onCategoryPneumoPage() {
+    print("Navigating to Category Urologie Page");
+    Navigator.pushNamed(context, '/CategoryPneumoPage');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,18 +93,18 @@ class _HomePageState extends State<HomePage> {
             children: [
               Container(
                 height: 260,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/gradient.png'),
                     fit: BoxFit.cover,
                   ),
-                  borderRadius: const BorderRadius.only(
+                  borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(50),
                     bottomRight: Radius.circular(50),
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                 top: 30,
                 left: 16,
                 right: 16,
@@ -80,10 +119,10 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              Positioned(
+              const Positioned(
                 top: 100,
                 left: 16,
-                child: const Text(
+                child: Text(
                   "Trouvez votre\nspécialiste",
                   style: TextStyle(
                     fontSize: 26,
@@ -105,16 +144,16 @@ class _HomePageState extends State<HomePage> {
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.1),
                         blurRadius: 10,
-                        offset: Offset(0, 5),
+                        offset: const Offset(0, 5),
                       ),
                     ],
                   ),
-                  child: TextField(
+                  child: const TextField(
                     decoration: InputDecoration(
                       hintText: "Chercher un docteur",
                       border: InputBorder.none,
                       prefixIcon: Icon(Icons.search, color: dark_purple),
-                      contentPadding: const EdgeInsets.symmetric(
+                      contentPadding: EdgeInsets.symmetric(
                         vertical: 12,
                         horizontal: 16,
                       ),
@@ -125,20 +164,38 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           const SizedBox(height: 20),
-
-          // Categories Section
+// Categories Section
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Catégorie",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: dark_bleu,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Catégorie",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: dark_bleu,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        // Navigate to the "Allcategories" page
+                        Navigator.pushNamed(context, '/allcategories');
+                      },
+                      child: const Text(
+                        "Voir Tous",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: dark_purple,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 20),
                 SizedBox(
@@ -149,38 +206,44 @@ class _HomePageState extends State<HomePage> {
                       CategoryItem(
                         title: 'Cardiologie',
                         imagePath: 'assets/heart.png',
+                        onTap: _onCategoryHeartPage,
                       ),
                       CategoryItem(
                         title: 'Dentaire',
                         imagePath: 'assets/tooth.png',
+                        onTap: _onCategoryPage,
                       ),
                       CategoryItem(
                         title: 'Neurologie',
                         imagePath: 'assets/brain.png',
+                        onTap: () {
+                          print('Category tapped!');
+                          Navigator.pushNamed(context, '/CategoryBrainPage');
+                        },
                       ),
                       CategoryItem(
-                        title: 'Neurologie',
-                        imagePath: 'assets/brain.png',
+                          title: 'Ophtalmologie',
+                          imagePath: 'assets/eye.png',
+                          onTap: _onCategoryEyePage),
+                      CategoryItem(
+                        title: 'Pneumologie',
+                        imagePath: 'assets/lungs.png',
+                        onTap: _onCategoryPneumoPage,
                       ),
                       CategoryItem(
-                        title: 'Neurologie',
-                        imagePath: 'assets/brain.png',
+                        title: 'Orthopediste',
+                        imagePath: 'assets/bones.png',
+                        onTap: _onCategoryBonesPage,
                       ),
                       CategoryItem(
-                        title: 'Neurologie',
-                        imagePath: 'assets/brain.png',
+                        title: 'Urologie',
+                        imagePath: 'assets/kidneys.png',
+                        onTap: _onCategoryKidneysPage,
                       ),
                       CategoryItem(
-                        title: 'Neurologie',
-                        imagePath: 'assets/brain.png',
-                      ),
-                      CategoryItem(
-                        title: 'Neurologie',
-                        imagePath: 'assets/brain.png',
-                      ),
-                      CategoryItem(
-                        title: 'Neurologie',
-                        imagePath: 'assets/brain.png',
+                        title: 'Gastrologue',
+                        imagePath: 'assets/gastro.png',
+                        onTap: _onCategoryGastroPage,
                       ),
                     ],
                   ),
@@ -197,10 +260,10 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       "Doctors",
                       style: TextStyle(
                         fontSize: 18,
