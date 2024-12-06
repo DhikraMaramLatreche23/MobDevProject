@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mydoctorpage/views/themes/colors.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class Calendar extends StatefulWidget {
@@ -38,12 +39,12 @@ class _CalendarState extends State<Calendar> {
             calendarStyle: CalendarStyle(
               // Change the color of the focused day
               todayDecoration: BoxDecoration(
-                color: Colors.purple[900], // Set your desired color for focused days
+                color: Colors.blue[900], // Set your desired color for focused days
                 shape: BoxShape.circle,
               ),
               // Change the color of selected days
               selectedDecoration: BoxDecoration(
-                color: const Color.fromARGB(255, 74, 20, 140).withOpacity(0.5), // Set your desired color for selected days
+                color:  const Color.fromARGB(255, 53, 115, 167).withOpacity(0.5), // Set your desired color for selected days
                 shape: BoxShape.circle,
               ),
             )),
