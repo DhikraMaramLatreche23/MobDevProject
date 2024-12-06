@@ -65,7 +65,7 @@ class _CategoryBrainPageState extends State<CategoryBrainPage> {
           const SizedBox(height: 16),
           DoctorCard(
             doctorName: "Dr Adam Jones",
-            specialty: "Spécialiste en Cardiologie",
+            specialty: "Spécialiste en Neurologie",
             phonenumber: "0553978862",
             location: "Rue des roses 54 lotissement Zhun, Alger",
             onTap: _onBookAppointment,
@@ -89,7 +89,7 @@ class _CategoryBrainPageState extends State<CategoryBrainPage> {
           const SizedBox(height: 16),
           DoctorCard(
             doctorName: "Dr Amir Haddad",
-            specialty: "Spécialiste en Pédiatrie",
+            specialty: "Spécialiste en Neurologie",
             phonenumber: "0553345678",
             location: "Polyclinique El Hana, Constantine",
             onTap: _onBookAppointment,
