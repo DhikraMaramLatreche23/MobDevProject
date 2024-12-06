@@ -31,6 +31,15 @@ flutter:
     - assets/heart.png
     - assets/tooth.png
     - assets/gradient.png
+    - assets/lungs.png
+    - assets/eye.png
+    - assets/bones.png
+    - assets/kidneys.png
+    - assets/gastro.png
+    - assets/geneco.png
+    - assets/radio.png
+    - assets/orl.png
+    - assets/endocrino.png
     - assets/more.png
     - assets/docDefault.png
     - assets/images/
