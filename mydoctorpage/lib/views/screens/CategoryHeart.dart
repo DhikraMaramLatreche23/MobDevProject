@@ -73,7 +73,7 @@ class _CategoryHeartPageState extends State<CategoryHeartPage> {
           const SizedBox(height: 16),
           DoctorCard(
             doctorName: "Dr Sarah Ben",
-            specialty: "Spécialiste en Neurologie",
+            specialty: "Spécialiste en Cardiologie",
             phonenumber: "0553123456",
             location: "Centre Médical Ibn Sina, Alger",
             onTap: _onBookAppointment,
@@ -81,7 +81,7 @@ class _CategoryHeartPageState extends State<CategoryHeartPage> {
           const SizedBox(height: 16),
           DoctorCard(
             doctorName: "Dr Yasmine Oud",
-            specialty: "Spécialiste en Dentisterie",
+            specialty: "Spécialiste en Cardiologie",
             phonenumber: "0553546546",
             location: "Clinique El Amel, Oran",
             onTap: _onBookAppointment,
@@ -89,7 +89,7 @@ class _CategoryHeartPageState extends State<CategoryHeartPage> {
           const SizedBox(height: 16),
           DoctorCard(
             doctorName: "Dr Amir Haddad",
-            specialty: "Spécialiste en Pédiatrie",
+            specialty: "Spécialiste en Cardiologie",
             phonenumber: "0553345678",
             location: "Polyclinique El Hana, Constantine",
             onTap: _onBookAppointment,
