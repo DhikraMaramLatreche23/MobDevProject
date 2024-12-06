@@ -21,8 +21,8 @@ class DoctorCardModify extends StatefulWidget {
 }
 
 class _DoctorCardModifyState extends State<DoctorCardModify> {
-    final String phone = "+1234567890";
-  final String email = "insaf.del3@gmail.com"; 
+  final String phone = "+1234567890";
+  final String email = "insaf.del3@gmail.com";
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,7 +50,10 @@ class _DoctorCardModifyState extends State<DoctorCardModify> {
                       children: [
                         IconButton(
                           onPressed: () {
-                            setState(() {});
+                            setState(() {
+                              Navigator.pushReplacementNamed(
+                                  context, '/doc_modify_profile');
+                            });
                           },
                           color: blue,
                           icon: const Icon(Icons.mode_edit_sharp),
@@ -58,7 +61,7 @@ class _DoctorCardModifyState extends State<DoctorCardModify> {
                         ),
                       ],
                     ),
-                    Text(
+                    const Text(
                       "Dr Adam Jones",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -66,7 +69,7 @@ class _DoctorCardModifyState extends State<DoctorCardModify> {
                           fontSize: 35),
                     ),
                     const SizedBox(height: 18),
-                    Text(
+                    const Text(
                       "Specialiste en cardiologie",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -79,20 +82,29 @@ class _DoctorCardModifyState extends State<DoctorCardModify> {
                         children: [
                           IconButton(
                             onPressed: () {
-                              
+                              setState(() {
+                                Navigator.pushReplacementNamed(
+                                    context, '/doc_modify_profile');
+                              });
                             },
                             color: blue,
                             icon: const Icon(Icons.phone),
                           ),
                           IconButton(
                               onPressed: () {
-                                
+                                setState(() {
+                                  Navigator.pushReplacementNamed(
+                                      context, '/doc_modify_profile');
+                                });
                               },
                               color: blue,
                               icon: const Icon(Icons.pin_drop)),
                           IconButton(
                               onPressed: () {
-                                
+                                setState(() {
+                                  Navigator.pushReplacementNamed(
+                                      context, '/doc_modify_profile');
+                                });
                               },
                               color: blue,
                               icon: const Icon(Icons.email)),
