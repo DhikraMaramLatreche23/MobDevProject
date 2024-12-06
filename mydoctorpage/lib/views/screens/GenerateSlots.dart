@@ -37,3 +37,86 @@ class EmptySlot extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+
+
+class GenerateSlots extends StatefulWidget {
+   final int numOfEmptySlots;
+   final int hourMaxx;
+   
+   const GenerateSlots({
+    required this.numOfEmptySlots,
+    required this.hourMaxx,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<GenerateSlots> createState() => _GenerateSlotsState();
+}
+
+class _GenerateSlotsState extends State<GenerateSlots> {
+  TimeOfDay? selectedSlot;
+  int count = 0;
+  @override
+  Widget build(BuildContext context) {
+    List<TimeOfDay> timeSlots = [];
+    // Morning
+    if (widget.hourMaxx == 11) {
+      for (int hour = 8; hour <= 11; hour++) {
+        timeSlots.add(TimeOfDay(hour: hour, minute: 0)); // Morning time slots
+      }
+    }
+    // Afternoon
+    else if (widget.hourMaxx == 14) {
+      for (int hour = 12; hour <= 14; hour++) {
+        timeSlots.add(TimeOfDay(hour: hour, minute: 0)); // Afternoon time slots
+      }
+    }
+    // Evening
+    else if (widget.hourMaxx == 18) {
+      for (int hour = 17; hour <= 18; hour++) {
+        timeSlots.add(TimeOfDay(hour: hour, minute: 0)); // Evening time slots
+      }
+    }
+
+  
+     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: timeSlots.map((timeSlot) {
+        bool isSelected = timeSlot == selectedSlot; // Check if the slot is selected
+        return GestureDetector(
+          onTap: () {
+            setState(() {
+              selectedSlot = timeSlot; // Update the selected slot
+            });
+          },
+          child: Container(
+            width: 120,
+            height: 40,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: isSelected ? dark_bleu : Colors.white, // Highlight if selected
+              borderRadius: BorderRadius.circular(12),
+              
+            ),
+            child: Text(
+              '${timeSlot.format(context)}',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: isSelected ? Colors.white : Colors.black, // Adjust text color
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      }).toList(),
+    );
+  }
+}
