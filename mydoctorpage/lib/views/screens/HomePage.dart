@@ -4,6 +4,8 @@ import 'package:mydoctorpage/views/widgets/DoctorWidget.dart';
 import 'package:mydoctorpage/views/widgets/CategoryItem.dart';
 import 'package:mydoctorpage/views/themes/colors.dart';
 import 'package:mydoctorpage/views/widgets/BottomDrawer.dart';
+import 'package:mydoctorpage/views/screens/PatientScreen.dart';
+import 'package:mydoctorpage/views/screens/DoctorPageDoctorView.dart';
 
 class HomePage extends StatefulWidget {
   static const String pageRoute = "/HomePage";
@@ -135,10 +137,20 @@ class _HomePageState extends State<HomePage> {
                         showCustomBottomDrawer(context);
                       },
                     ),
-                    CircleAvatar(
-                      backgroundColor: Colors.white,
-                      child: Icon(Icons.person, color: dark_purple),
-                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  DoctorDoctor()),
+                        );
+                      },
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        child: Icon(Icons.person, color: dark_purple),
+                      ),
+                    ),                    
                   ],
                 ),
               ),
