@@ -19,78 +19,84 @@ class _PatientCardState extends State<PatientCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(10),
-        child: Column(children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Column(
-                children: [
-                  const SizedBox(
-                    height: 20,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        //color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Image.asset(
+              widget.img,
+              height: 150,
+              width: 120,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  "Profile du patient",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: dark_bleu,
+                    fontSize: 24,
                   ),
-                  ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.asset(widget.img,
-                          height: 180, width: 150, fit: BoxFit.cover)),
-                ],
-              ),
-              //const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  widget.name,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w900,
+                    color: dark_bleu,
+                    fontSize: 18,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Row(
                   children: [
-                    const Text(
-                      "Profile du patient",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: dark_bleu,
-                          fontSize: 35),
-                    ),
-                    const SizedBox(height: 30),
-                    Text(
-                      widget.name,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        color: dark_bleu,
-                        fontSize: 20,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      IconButton(
-                        padding: const EdgeInsets.all(0.0),
-                        style: IconButton.styleFrom(
-                          backgroundColor: dark_purple,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
+                    IconButton(
+                      padding: EdgeInsets.zero,
+                      style: IconButton.styleFrom(
+                        backgroundColor: dark_purple,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
                         ),
-                        icon: Icon(
-                          Icons.edit,
-                          color: Colors.white,
-                        ),
-                        onPressed: () {
-                          // leed to modify patient page
-                        },
                       ),
-                      const SizedBox(
-                        width: 10,
+                      icon: const Icon(
+                        Icons.edit,
+                        color: Colors.white,
                       ),
-                      const Text(
-                        "modifier mes info",
+                      onPressed: () {
+                        // lead to modify patient page
+                      },
+                    ),
+                    const SizedBox(width: 12),
+                    const Expanded(
+                      child: Text(
+                        "Modifier mes infos",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: dark_bleu,
-                          fontSize: 13,
+                          fontSize: 14,
                         ),
-                      )
-                    ])
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
                   ],
                 ),
-              )
-            ],
+              ],
+            ),
           ),
-        ]));
+        ],
+      ),
+    );
   }
 }
