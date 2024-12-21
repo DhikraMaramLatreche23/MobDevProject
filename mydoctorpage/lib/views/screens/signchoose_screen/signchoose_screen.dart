@@ -21,12 +21,11 @@ class _SignChooseScreenState extends State<SignChooseScreen> {
       extendBodyBehindAppBar: true,
       body: Container(
         width: double.infinity,
-        decoration: BoxDecoration(
-          
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              backgroundGradient1,
-              backgroundGradient2,
+              Color.fromARGB(255, 53, 115, 167),
+              Color.fromARGB(255, 194, 214, 240)
             ],
             begin: Alignment.bottomRight,
             end: Alignment.topLeft,
@@ -34,19 +33,13 @@ class _SignChooseScreenState extends State<SignChooseScreen> {
         ),
         child: Center(
           child: Stack(
-            
             children: [
-              
               Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(height: 40),
-                  Image.asset(
-                    "assets/images/doctorandschedule.png",
-                  ),
-                  const SizedBox(height: 20),
                   const Text(
-                    "Sign Up",
+                    "Inscrivez-vous",
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
@@ -54,9 +47,13 @@ class _SignChooseScreenState extends State<SignChooseScreen> {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 5),
+                  Image.asset(
+                    "assets/images/doctorandschedule.png",
+                  ),
+                  const SizedBox(height: 5),
                   const Text(
-                    "Continue as?",
+                    "Continuer en tant que",
                     style: TextStyle(
                       fontSize: 21,
                       fontWeight: FontWeight.w300,
@@ -65,68 +62,74 @@ class _SignChooseScreenState extends State<SignChooseScreen> {
                     textAlign: TextAlign.left,
                   ),
                   const SizedBox(height: 20),
-                  ToggleButtons(
-                    isSelected: [isPatient, !isPatient],
-                    onPressed: (index) {
-                      setState(() {
-                        isPatient = index == 0;
-                      });
-                    },
-                    selectedColor:
-                        Colors.white, // Text color for the selected button
-                    color: const Color(
-                        0xFF03045E), // Text color for the unselected button
-                    fillColor: Colors
-                        .transparent, // No fill color for the entire container
-                    borderColor: const Color.fromARGB(
-                        141, 0, 118, 182), // Border color for the entire container
-                    borderRadius: BorderRadius.circular(
-                        20.0), // Rounded corners for the buttons
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Patient Button
-                      Container(
-                        width: 160.0, // Width of the button
-                        height: 50.0, // Height of the button
-                        decoration: BoxDecoration(
-                          color: isPatient
-                              ? const Color(0xFF0077B6)
-                              : Colors
-                                  .transparent, // Change color for the selected button
-                          borderRadius: BorderRadius.circular(
-                              20.0), // Rounded corners for the button itself
-                          border: Border.all(
-                            color:
-                                Colors.transparent, // Border color for the button
-                            width: 2.0,
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            isPatient = true;
+                          });
+                        },
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                          width: 160.0,
+                          height: 50.0,
+                          decoration: BoxDecoration(
+                            color: isPatient
+                                ? const Color(0xFF03045E)
+                                : Colors.transparent,
+                            borderRadius: BorderRadius.circular(20.0),
+                            border: Border.all(
+                              color: const Color(0xFF03045E),
+                              width: 2.0,
+                            ),
                           ),
-                        ),
-                        child: const Center(
-                          child: Text("Patient",
+                          child: const Center(
+                            child: Text(
+                              "Patient",
                               style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold)),
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                                color: Color.fromARGB(255, 255, 255, 255),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                      // Doctor Button
-                      Container(
-                        width: 140.0, // Width of the button
-                        height: 50.0, // Height of the button
-                        decoration: BoxDecoration(
-                          color: !isPatient
-                              ? const Color(0xFF0077B6)
-                              : Colors
-                                  .transparent, // Change color for the selected button
-                          borderRadius: BorderRadius.circular(
-                              20.0), // Rounded corners for the button itself
-                          border: Border.all(
-                            color:
-                                Colors.transparent, // Border color for the button
-                            width: 2.0,
+                      const SizedBox(width: 10),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            isPatient = false;
+                          });
+                        },
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                          width: 160.0,
+                          height: 50.0,
+                          decoration: BoxDecoration(
+                            color: !isPatient
+                                ? const Color(0xFF03045E)
+                                : Colors.transparent,
+                            borderRadius: BorderRadius.circular(20.0),
+                            border: Border.all(
+                              color: const Color(0xFF03045E),
+                              width: 2.0,
+                            ),
                           ),
-                        ),
-                        child: const Center(
-                          child: Text("Doctor",
+                          child: const Center(
+                            child: Text(
+                              "Médecin",
                               style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold)),
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                                color: Color.fromARGB(255, 255, 255, 255),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ],
@@ -141,21 +144,22 @@ class _SignChooseScreenState extends State<SignChooseScreen> {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF0077B6), // Background color
-                      foregroundColor: Colors.white, // Text color
+                      backgroundColor: const Color(0xFF03045E),
+                      foregroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(
-                          vertical: 15.0, horizontal: 140.0), // Padding
-                      shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(12.0), // Rounded corners
+                        vertical: 15.0,
+                        horizontal: 140.0,
                       ),
-                      elevation: 0, // Shadow effect
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12.0),
+                      ),
+                      elevation: 0,
                     ),
                     child: const Text(
-                      "Next",
+                      "Suivant",
                       style: TextStyle(
-                        fontSize: 18, // Font size
-                        fontWeight: FontWeight.bold, // Bold text
+                        fontSize: 20,
+                        // fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),

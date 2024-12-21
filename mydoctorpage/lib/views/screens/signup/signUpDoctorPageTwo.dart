@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mydoctorpage/views/screens/HomePage.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../bloc_folders/signup/signup_doctor/bloc/signup_bloc.dart';
 
 class SignDoctor extends StatefulWidget {
   const SignDoctor({super.key});
@@ -12,155 +12,138 @@ class SignDoctor extends StatefulWidget {
 
 class _SignDoctorState extends State<SignDoctor> {
   final _formKey = GlobalKey<FormState>();
-  
+
   // Controllers for each field
   final TextEditingController specialityController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
 
-  // Validators for form fields
-  String? _validateSpeciality(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter your specialty';
-    }
-    return null;
-  }
-
-  String? _validateAddress(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter your address';
-    }
-    return null;
-  }
-
-  String? _validatePhoneNumber(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter your phone number';
-    }
-    if (!RegExp(r'^[0-9]{10}$').hasMatch(value)) {
-      return 'Please enter a valid phone number';
-    }
-    return null;
-  }
-
-  String? _validateDescription(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter a description';
-    }
-    return null;
-  }
-
-  // Submit form
   void _submitForm() {
-    if (_formKey.currentState?.validate() ?? false) {
-      Navigator.pushNamed(context, HomePage.pageRoute);
+    if (_formKey.currentState!.validate()) {
+      final bloc = context.read<SignupBloc>();
+      bloc.add(SignupDoctorPageTwoSubmitted(
+        speciality: specialityController.text,
+        address: addressController.text,
+        phone: phoneController.text,
+        description: descriptionController.text,
+      ));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: Image.asset(
-              "assets/images/background.png",
-              fit: BoxFit.cover,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 50),
-            child: Form(
-              key: _formKey, // Form key for validation
-              child: ListView(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                children: [
-                  const Text(
-                    "Sign Up",
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF03045E),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    "Doctor",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xFF03045E),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  CustomTextField(
-                    controller: specialityController,
-                    icon: Icons.person_outline,
-                    hintText: 'Speciality',
-                    validator: _validateSpeciality,
-                  ),
-                  const SizedBox(height: 15),
-                  CustomTextField(
-                    controller: addressController,
-                    icon: Icons.location_on_outlined,
-                    hintText: 'Address',
-                    validator: _validateAddress,
-                  ),
-                  const SizedBox(height: 15),
-                  CustomTextField(
-                    controller: phoneController,
-                    icon: Icons.phone_outlined,
-                    hintText: 'Phone Number',
-                    isPassword: false,
-                    validator: _validatePhoneNumber,
-                  ),
-                  const SizedBox(height: 15),
-                  CustomTextField(
-                    controller: descriptionController,
-                    icon: Icons.description_outlined,
-                    hintText: 'Description',
-                    isPassword: false,
-                    validator: _validateDescription,
-                  ),
-                  const SizedBox(height: 30),
-                  SizedBox(
-                    width: 250,
-                    child: ElevatedButton(
-                      onPressed: _submitForm,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF0077B6),
-                        foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(vertical: 15.0),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(11.0),
-                        ),
-                        elevation: 0,
-                      ),
-                      child: const Text(
-                        "Sign Up",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Center(
-                    child: Image.asset(
-                      "assets/images/twodocs.png",
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                ],
+    return BlocListener<SignupBloc, SignupState>(
+      listener: (context, state) {
+        if (state is SignupSuccess) {
+          Navigator.pushNamed(context, '/home');
+        } else if (state is SignupFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.error)),
+          );
+        }
+      },
+      child: Scaffold(
+        body: Stack(
+          children: [
+            Positioned.fill(
+              child: Image.asset(
+                "assets/images/background.png", // Same background image
+                fit: BoxFit.cover,
               ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.only(
+                  top: 50), // Space between top and content
+              child: SingleChildScrollView(
+                // Ensures scrolling when keyboard appears
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 20),
+                      const Text(
+                        "Détails professionnels", // Translated title
+                        style: TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 20),
+                      CustomTextField(
+                        controller: specialityController,
+                        icon: Icons.person_outline,
+                        hintText: 'Spécialité', // Translated hint text
+                        validator: (value) => value == null || value.isEmpty
+                            ? 'Entrez votre spécialité'
+                            : null, // Translated error message
+                      ),
+                      const SizedBox(
+                          height: 15), // Reduced space between fields
+                      CustomTextField(
+                        controller: addressController,
+                        icon: Icons.location_on_outlined,
+                        hintText: 'Adresse', // Translated hint text
+                        validator: (value) => value == null || value.isEmpty
+                            ? 'Entrez votre adresse'
+                            : null, // Translated error message
+                      ),
+                      const SizedBox(
+                          height: 15), // Reduced space between fields
+                      CustomTextField(
+                        controller: phoneController,
+                        icon: Icons.phone_outlined,
+                        hintText: 'Numéro de téléphone', // Translated hint text
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Entrez votre numéro de téléphone'; // Translated error message
+                          }
+                          if (!RegExp(r'^\d{10}$').hasMatch(value)) {
+                            return 'Entrez un numéro valide'; // Translated error message
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(
+                          height: 15), // Reduced space between fields
+                      CustomTextField(
+                        controller: descriptionController,
+                        icon: Icons.description_outlined,
+                        hintText: 'Description', // Translated hint text
+                        validator: (value) => value == null || value.isEmpty
+                            ? 'Entrez une description'
+                            : null, // Translated error message
+                      ),
+                      const SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: _submitForm,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF03045E),
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 80.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          elevation: 0,
+                        ),
+                        child: const Text(
+                          'Soumettre',
+                          style: TextStyle(fontSize: 20),
+                        ), // Translated button text
+                      ),
+
+                      const SizedBox(height: 20),
+                      Center(
+                        child: Image.asset(
+                          "assets/images/twodocs.png", // Same image
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -168,45 +151,50 @@ class _SignDoctorState extends State<SignDoctor> {
 
 class CustomTextField extends StatelessWidget {
   final IconData icon;
+  final TextEditingController controller;
   final String hintText;
   final bool isPassword;
-  final TextEditingController controller;
-  final FormFieldValidator<String> validator;
+  final String? Function(String?)? validator;
 
   const CustomTextField({
     super.key,
     required this.icon,
+    required this.controller,
     required this.hintText,
     this.isPassword = false,
-    required this.controller,
-    required this.validator,
+    this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      obscureText: isPassword,
-      validator: validator,
-      style: const TextStyle(
-        fontSize: 16,
-        color: Color(0xFF03045E),
-      ),
-      decoration: InputDecoration(
-        prefixIcon: Icon(icon),
-        hintText: hintText,
-        hintStyle: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w300,
-          color: Color(0xFF03045E),
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+          horizontal: 40.0), // Padding for horizontal spacing
+      child: TextFormField(
+        controller: controller,
+        obscureText: isPassword,
+        style: const TextStyle(
+          fontSize: 16, // Set font size
+          color: Color(0xFF03045E), // Text color
         ),
-        filled: true,
-        fillColor: Colors.white,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide.none,
+        decoration: InputDecoration(
+          prefixIcon: Icon(icon),
+          hintText: hintText,
+          hintStyle: const TextStyle(
+            fontSize: 16, // Font size for the hint text
+            fontWeight: FontWeight.w300,
+            color: Color(0xFF03045E),
+          ),
+          filled: true,
+          fillColor: Colors.white,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide.none,
+          ),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
         ),
-        contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+        validator: validator,
       ),
     );
   }

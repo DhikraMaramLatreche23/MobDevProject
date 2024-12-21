@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:mydoctorpage/views/screens/AllCategories.dart';
 import 'package:mydoctorpage/views/screens/DoctorPageDoctorView.dart';
 import 'package:mydoctorpage/views/screens/DoctorPagePatientView.dart';
@@ -22,6 +24,11 @@ import 'views/screens/signup/signUpDoctorPageTwo.dart';
 import 'views/screens/login/loginDoctor.dart';
 import 'views/screens/login/loginPatient.dart';
 
+import './bloc_folders/signup/signup_doctor/bloc/signup_bloc.dart';
+import './bloc_folders/signup/signup_patient/bloc/signup_patient_bloc.dart';
+import './bloc_folders/login/loginDoctor/bloc/login_bloc.dart' as doctor_bloc;
+import './bloc_folders/login/loginPatient/bloc/login_bloc.dart' as patient_bloc;
+
 void main() {
   runApp(const MainApp());
 }
@@ -31,35 +38,43 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        textTheme: GoogleFonts.poppinsTextTheme(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => SignupBloc()), // Doctor signup
+        BlocProvider(create: (_) => SignupPatientBloc()), // Patient signup
+        BlocProvider(create: (_) => doctor_bloc.LoginBloc()), // Doctor login
+        BlocProvider(create: (_) => patient_bloc.LoginBloc()), // Patient login
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          textTheme: GoogleFonts.poppinsTextTheme(),
+        ),
+        home: const SignChooseScreen(),
+        routes: {
+          HomePage.pageRoute: (ctx) => const HomePage(),
+          SignChooseScreen.pageRoute: (ctx) => const SignChooseScreen(),
+          SignUpPatient.pageRoute: (ctx) => const SignUpPatient(),
+          SignPatient.pageRoute: (ctx) => const SignPatient(),
+          SignUpDoctor.pageRoute: (ctx) => const SignUpDoctor(),
+          SignDoctor.pageRoute: (ctx) => const SignDoctor(),
+          Loginpatient.pageRoute: (ctx) => const Loginpatient(),
+          LoginDoctor.pageRoute: (ctx) => const LoginDoctor(),
+          '/home': (context) => const HomePage(),
+          '/DoctorPagePatientView': (context) => const Doctor(),
+          '/rdv': (context) => const DoctorDoctor(),
+          '/CategoryPage': (context) => const CategoryPage(),
+          '/allcategories': (context) => const Allcategories(),
+          '/CategoryHeartPage': (context) => const CategoryHeartPage(),
+          '/CategoryBrainPage': (context) => const CategoryBrainPage(),
+          '/CategoryEyePage': (context) => const CategoryEyePage(),
+          '/CategoryKidneysPage': (context) => const CategoryKidneysPage(),
+          '/CategoryBonesPage': (context) => const CategoryBonesPage(),
+          '/CategoryGastroPage': (context) => const CategoryGastroPage(),
+          '/CategoryPneumoPage': (context) => const CategoryPneumoPage(),
+          '/doc_modify_profile': (context) => const DocModifyProfile(),
+        },
       ),
-      home: const SignChooseScreen(),
-      routes: {
-        HomePage.pageRoute: (ctx) => const HomePage(),
-        SignChooseScreen.pageRoute: (ctx) => const SignChooseScreen(),
-        SignUpPatient.pageRoute: (ctx) => const SignUpPatient(),
-        SignPatient.pageRoute: (ctx) => const SignPatient(),
-        SignUpDoctor.pageRoute: (ctx) => const SignUpDoctor(),
-        SignDoctor.pageRoute: (ctx) => const SignDoctor(),
-        Logindoctor.pageRoute: (ctx) => const Logindoctor(),
-        Loginpatient.pageRoute: (ctx) => const Loginpatient(),
-        '/home': (context) => const HomePage(),
-        '/DoctorPagePatientView': (context) => const Doctor(),
-        '/rdv': (context) => const DoctorDoctor(),
-        '/CategoryPage': (context) => const CategoryPage(),
-        '/allcategories': (context) => const Allcategories(),
-        '/CategoryHeartPage': (context) => const CategoryHeartPage(),
-        '/CategoryBrainPage': (context) => const CategoryBrainPage(),
-        '/CategoryEyePage': (context) => const CategoryEyePage(),
-        '/CategoryKidneysPage': (context) => const CategoryKidneysPage(),
-        '/CategoryBonesPage': (context) => const CategoryBonesPage(),
-        '/CategoryGastroPage': (context) => const CategoryGastroPage(),
-        '/CategoryPneumoPage': (context) => const CategoryPneumoPage(),
-        '/doc_modify_profile': (context) => const DocModifyProfile(),
-      },
     );
   }
 }

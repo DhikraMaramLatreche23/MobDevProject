@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mydoctorpage/views/screens/login/loginPatient.dart';
 import 'package:mydoctorpage/views/screens/signup/signUpPatientPageTwo.dart';
 
-
 class SignUpPatient extends StatefulWidget {
   const SignUpPatient({super.key});
   static const String pageRoute = '/signUpPatient.dart';
@@ -25,12 +24,13 @@ class _SignUpPatientState extends State<SignUpPatient> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 50), // Space between top and content
+            padding: const EdgeInsets.only(
+                top: 50), // Espace entre le haut et le contenu
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               children: [
                 const Text(
-                  "Sign Up",
+                  "S'inscrire",
                   textAlign: TextAlign.start,
                   style: TextStyle(
                     fontSize: 32,
@@ -57,50 +57,45 @@ class _SignUpPatientState extends State<SignUpPatient> {
                 const SizedBox(height: 20),
                 SocialButton(
                   icon: Icons.g_mobiledata,
-                  label: 'Continue with Google',
+                  label: 'Continuer avec Google',
                   onPressed: () {},
                 ),
                 const SizedBox(height: 10),
                 SocialButton(
                   icon: Icons.facebook,
-                  label: 'Continue with Facebook',
+                  label: 'Continuer avec Facebook',
                   onPressed: () {},
                 ),
                 const SizedBox(height: 10),
                 SocialButton(
                   icon: Icons.apple,
-                  label: 'Continue with Apple',
+                  label: 'Continuer avec Apple',
                   onPressed: () {},
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  'or',
+                  'ou',
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 10),
-                SizedBox(
-                  width: 250, // Constrain the button width
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, SignPatient.pageRoute);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF0077B6), // Background color
-                      foregroundColor: Colors.white, // Text color
-                      padding: const EdgeInsets.symmetric(vertical: 15.0), // Adjust padding
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(11.0), // Rounded corners
-                      ),
-                      elevation: 0, // Shadow effect
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, SignPatient.pageRoute);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF03045E),
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 20.0, horizontal: 40.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0),
                     ),
-                    child: const Text(
-                      "Sign Up with email",
-                      style: TextStyle(
-                        fontSize: 18, // Font size
-                        fontWeight: FontWeight.w300, // Font weight
-                      ),
-                    ),
+                    elevation: 0,
                   ),
+                  child: const Text(
+                    "S'inscrire avec un email",
+                    style: TextStyle(fontSize: 20),
+                  ), // Translated button text
                 ),
                 Center(
                   child: TextButton(
@@ -108,11 +103,10 @@ class _SignUpPatientState extends State<SignUpPatient> {
                       Navigator.pushNamed(context, Loginpatient.pageRoute);
                     },
                     child: const Text(
-                      'Have an account? Log in',
+                      'Vous avez un compte ? Connectez-vous',
                       style: TextStyle(
                         color: Color(0xFF03045E),
                         fontSize: 16,
-                        
                       ),
                     ),
                   ),
@@ -143,7 +137,7 @@ class SocialButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        width: 250, // Constrain the button width
+        width: 350, // Limiter la largeur du bouton
         child: ElevatedButton.icon(
           onPressed: onPressed,
           icon: Icon(icon),
@@ -151,7 +145,8 @@ class SocialButton extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color.fromARGB(255, 255, 255, 255),
             foregroundColor: const Color(0xFF03045E),
-            padding: const EdgeInsets.symmetric(vertical: 15.0), // Adjust padding
+            padding: const EdgeInsets.symmetric(
+                vertical: 15.0), // Ajuster le padding
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(11.0),
             ),
