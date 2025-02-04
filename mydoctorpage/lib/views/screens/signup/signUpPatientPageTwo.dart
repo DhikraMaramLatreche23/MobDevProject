@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mydoctorpage/views/screens/HomePage.dart';
 
-import '../../../bloc_folders/signup/signup_patient/bloc/signup_patient_bloc.dart';
-import '../../../bloc_folders/signup/signup_patient/bloc/signup_patient_event.dart';
-import '../../../bloc_folders/signup/signup_patient/bloc/signup_patient_state.dart';
 
 class SignPatient extends StatefulWidget {
   const SignPatient({super.key});
@@ -14,145 +11,172 @@ class SignPatient extends StatefulWidget {
 }
 
 class _SignPatientState extends State<SignPatient> {
+  // Controllers for the form fields
   final TextEditingController nameController = TextEditingController();
   final TextEditingController surnameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController = TextEditingController();
 
+  // Key to manage form validation
   final _formKey = GlobalKey<FormState>();
 
+  // Email validation regex
+  bool _isValidEmail(String email) {
+    final emailRegex = RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$");
+    return emailRegex.hasMatch(email);
+  }
+
+  // Password validation (min 6 characters)
+  bool _isValidPassword(String password) {
+    return password.length >= 6;
+  }
+
+  // Submit form function
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
-      final bloc = context.read<SignupPatientBloc>();
-      bloc.add(SignupPatientPageSubmitted(
-        name: nameController.text,
-        surname: surnameController.text,
-        email: emailController.text,
-        password: passwordController.text,
-      ));
+      Navigator.pushNamed(context, HomePage.pageRoute);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<SignupPatientBloc, SignupPatientState>(
-      listener: (context, state) {
-        if (state is SignupPatientLoading) {
-          showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (_) => const Center(child: CircularProgressIndicator()),
-          );
-        } else if (state is SignupPatientSuccess) {
-          Navigator.pop(context); // Close loading
-          Navigator.pushNamed(context, 'HomePage.pageRoute');
-        } else if (state is SignupPatientFailure) {
-          Navigator.pop(context); // Close loading
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.error)),
-          );
-        }
-      },
-      child: Scaffold(
-        body: Stack(
-          children: [
-            Positioned.fill(
-              child: Image.asset(
-                "assets/images/background.png", // Background image
-                fit: BoxFit.cover,
-              ),
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Image.asset(
+              "assets/images/background.png",
+              fit: BoxFit.cover,
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 50), // Top padding for the form
-              child: SingleChildScrollView( // Ensures scrolling when keyboard appears
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 20),
-                      const Text(
-                        "Créer un compte - Patient", // Translated title
-                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 20),
-                      CustomTextField(
-                        controller: nameController,
-                        icon: Icons.person,
-                        hintText: 'Nom', // Translated hint text
-                        validator: (value) => value == null || value.isEmpty ? 'Entrez votre nom' : null, // Translated error message
-                      ),
-                      const SizedBox(height: 20),
-                      CustomTextField(
-                        controller: surnameController,
-                        icon: Icons.person_outline,
-                        hintText: 'Prénom', // Translated hint text
-                        validator: (value) => value == null || value.isEmpty ? 'Entrez votre prénom' : null, // Translated error message
-                      ),
-                      const SizedBox(height: 20),
-                      CustomTextField(
-                        controller: emailController,
-                        icon: Icons.email,
-                        hintText: 'Email',
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Entrez votre email'; // Translated error message
-                          }
-                          final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-                          if (!emailRegex.hasMatch(value)) {
-                            return 'Entrez un email valide'; // Translated error message
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      CustomTextField(
-                        controller: passwordController,
-                        icon: Icons.lock,
-                        hintText: 'Mot de passe', // Translated hint text
-                        isPassword: true,
-                        validator: (value) => value == null || value.length < 6 ? 'Le mot de passe doit contenir au moins 6 caractères' : null, // Translated error message
-                      ),
-                      const SizedBox(height: 20),
-                      CustomTextField(
-                        controller: confirmPasswordController,
-                        icon: Icons.lock_outline,
-                        hintText: 'Confirmer le mot de passe', // Translated hint text
-                        isPassword: true,
-                        validator: (value) => value != passwordController.text ? 'Les mots de passe ne correspondent pas' : null, // Translated error message
-                      ),
-                      const SizedBox(height: 20),
-                      // Button container with 40% width
-                      
-                      ElevatedButton(
-                        onPressed: _submitForm,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF03045E),
-                          foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 80.0),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
-                          elevation: 0,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 50), // Space between top and content
+            child: Form(
+              key: _formKey,
+              child: ListView(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                children: [
+                  const Text(
+                    "Sign Up",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF03045E),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    "Patient",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xFF03045E),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  CustomTextField(
+                    controller: nameController,
+                    icon: Icons.person,
+                    hintText: 'Name',
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your name';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 15),
+                  CustomTextField(
+                    controller: surnameController,
+                    icon: Icons.person_outline,
+                    hintText: 'Surname',
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your surname';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 15),
+                  CustomTextField(
+                    controller: emailController,
+                    icon: Icons.email,
+                    hintText: 'Email',
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter an email';
+                      }
+                      if (!_isValidEmail(value)) {
+                        return 'Please enter a valid email address';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 15),
+                  CustomTextField(
+                    controller: passwordController,
+                    icon: Icons.lock,
+                    hintText: 'Password',
+                    isPassword: true,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter a password';
+                      }
+                      if (!_isValidPassword(value)) {
+                        return 'Password must be at least 6 characters';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 15),
+                  CustomTextField(
+                    controller: confirmPasswordController,
+                    icon: Icons.lock_outline,
+                    hintText: 'Password verification',
+                    isPassword: true,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please confirm your password';
+                      }
+                      if (value != passwordController.text) {
+                        return 'Passwords do not match';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 30),
+                  SizedBox(
+                    width: 250, // Constrain the button width
+                    child: ElevatedButton(
+                      onPressed: _submitForm,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF0077B6), // Background color
+                        foregroundColor: Colors.white, // Text color
+                        padding: const EdgeInsets.symmetric(vertical: 15.0), // Adjust padding
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(11.0), // Rounded corners
                         ),
-                        child: const Text(
-                          "S'inscrire",
-                          style: TextStyle(fontSize: 20),
-                        ), // Translated button text
+                        elevation: 0, // Shadow effect
                       ),
-                      const SizedBox(height: 20),
-                Center(
-                  child: Image.asset(
-                    "assets/images/twodocs.png",
+                      child: const Text(
+                        "Sign Up",
+                        style: TextStyle(
+                          fontSize: 18, // Font size
+                          fontWeight: FontWeight.w300, // Font weight
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-                    ],
-                  ),
-                ),
+                  const SizedBox(height: 20),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -176,33 +200,31 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40.0), // Padding for horizontal spacing
-      child: TextFormField(
-        controller: controller,
-        obscureText: isPassword,
-        style: const TextStyle(
-          fontSize: 16, // Set font size
-          color: Color(0xFF03045E), // Text color
-        ),
-        decoration: InputDecoration(
-          prefixIcon: Icon(icon),
-          hintText: hintText,
-          hintStyle: const TextStyle(
-            fontSize: 16, // Font size for the hint text
-            fontWeight: FontWeight.w300,
-            color: Color(0xFF03045E),
-          ),
-          filled: true,
-          fillColor: Colors.white,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide.none,
-          ),
-          contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-        ),
-        validator: validator,
+    return TextFormField(
+      controller: controller,
+      obscureText: isPassword,
+      style: const TextStyle(
+        fontSize: 16, // Set font size
+        color: Color(0xFF03045E), // Text color
       ),
+      decoration: InputDecoration(
+        prefixIcon: Icon(icon),
+        hintText: hintText,
+        hintStyle: const TextStyle(
+          fontSize: 16, // Font size for the hint text
+          fontWeight: FontWeight.w300,
+          color: Color(0xFF03045E),
+        ),
+        filled: true,
+        fillColor: Colors.white,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide.none,
+        ),
+        contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+      ),
+      validator: validator,
     );
   }
 }
+

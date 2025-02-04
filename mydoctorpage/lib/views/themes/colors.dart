@@ -13,3 +13,4 @@ const dark_bleu = Color.fromARGB(255, 3, 4, 94);
 const light_bleu = Color.fromARGB(255,0 , 180 ,216);
 const info_bleu = Color.fromARGB(255, 0, 119, 182);
 var blue = const Color.fromARGB(255, 53, 115, 167);
+

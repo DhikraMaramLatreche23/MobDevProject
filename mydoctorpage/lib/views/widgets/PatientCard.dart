@@ -9,6 +9,7 @@ class PatientCard extends StatefulWidget {
     super.key,
     required this.name,
     required this.img,
+    
   });
 
   @override

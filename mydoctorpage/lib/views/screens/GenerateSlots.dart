@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mydoctorpage/views/themes/colors.dart';
-import 'DoctorPagePatientView.dart';
 import 'dart:math';
 
 class EmptySlot extends StatelessWidget {

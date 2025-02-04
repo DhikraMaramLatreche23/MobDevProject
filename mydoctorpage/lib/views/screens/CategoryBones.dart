@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mydoctorpage/views/widgets/BottomBar.dart';
-import 'package:mydoctorpage/views/widgets/DoctorWidget.dart';
+// import 'package:mydoctorpage/views/widgets/DoctorWidget.dart';
 import 'package:mydoctorpage/views/themes/colors.dart';
 import 'package:mydoctorpage/views/widgets/CategoryCard.dart';
 
@@ -66,36 +66,36 @@ class _CategoryBonesPageState extends State<CategoryBonesPage> {
             ),
           ),
           const SizedBox(height: 16),
-          DoctorCard(
-            doctorName: "Dr Zair Youcef",
-            specialty: "Spécialiste en Orthopidie",
-            phonenumber: "0553978862",
-            location: "Rue des roses 54 lotissement Zhun, Alger",
-            onTap: _onBookAppointment,
-          ),
-          const SizedBox(height: 16),
-          DoctorCard(
-            doctorName: "Dr Boutasta Tarek",
-            specialty: "Spécialiste en Orthopidie",
-            phonenumber: "0553123456",
-            location: "Centre Médical Ibn Sina, Alger",
-            onTap: _onBookAppointment,
-          ),
-          const SizedBox(height: 16),
-          DoctorCard(
-            doctorName: "Dr Benbrahim",
-            specialty: "Spécialiste en Orthopidie",
-            phonenumber: "0553546546",
-            location: "Clinique El Amel, Oran",
-            onTap: _onBookAppointment,
-          ),
-          DoctorCard(
-            doctorName: "Dr Talbi Yacine",
-            specialty: "Spécialiste en Chirugie Orthopidie",
-            phonenumber: "0553546546",
-            location: "Clinique El Amel, Oran",
-            onTap: _onBookAppointment,
-          ),          
+          // DoctorCard(
+          //   doctorName: "Dr Zair Youcef",
+          //   specialty: "Spécialiste en Orthopidie",
+          //   phonenumber: "0553978862",
+          //   location: "Rue des roses 54 lotissement Zhun, Alger",
+          //   onTap: _onBookAppointment,
+          // ),
+          // const SizedBox(height: 16),
+          // DoctorCard(
+          //   doctorName: "Dr Boutasta Tarek",
+          //   specialty: "Spécialiste en Orthopidie",
+          //   phonenumber: "0553123456",
+          //   location: "Centre Médical Ibn Sina, Alger",
+          //   onTap: _onBookAppointment,
+          // ),
+          // const SizedBox(height: 16),
+          // DoctorCard(
+          //   doctorName: "Dr Benbrahim",
+          //   specialty: "Spécialiste en Orthopidie",
+          //   phonenumber: "0553546546",
+          //   location: "Clinique El Amel, Oran",
+          //   onTap: _onBookAppointment,
+          // ),
+          // DoctorCard(
+          //   doctorName: "Dr Talbi Yacine",
+          //   specialty: "Spécialiste en Chirugie Orthopidie",
+          //   phonenumber: "0553546546",
+          //   location: "Clinique El Amel, Oran",
+          //   onTap: _onBookAppointment,
+          // ),          
         ],
       ),
       bottomNavigationBar: BottomNavBar(

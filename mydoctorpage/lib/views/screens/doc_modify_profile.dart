@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mydoctorpage/views/themes/colors.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class DocModifyProfile extends StatefulWidget {
   const DocModifyProfile({Key? key}) : super(key: key);
@@ -14,25 +16,89 @@ class _DocModifyProfileState extends State<DocModifyProfile> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _specilatiteController = TextEditingController();
-
+  final TextEditingController _specialityController = TextEditingController();
+  
+  bool _isLoading = true;
+  final int doctorId = 2; // temporary default doctor 
+  
   @override
   void initState() {
     super.initState();
-    _phoneController.text = "";
-    _locationController.text = "";
-    _emailController.text = "";
-    _descriptionController.text = "";
-    _nameController.text = "";
-    _specilatiteController.text = "";
+    _fetchDoctorProfile();
   }
 
-  void _saveProfile() {
-    if (_validateInputs()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Profile Updated Successfully')),
+  Future<void> _fetchDoctorProfile() async {
+    try {
+      final response = await http.get(
+        Uri.parse('http://localhost:5001/doctors/$doctorId'),
       );
-      Navigator.pop(context);
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        setState(() {
+          _nameController.text = data['surname'] ?? '';
+          _specialityController.text = data['speciality'] ?? '';
+          _phoneController.text = data['phonenumber'] ?? '';
+          _locationController.text = data['address'] ?? '';
+          _emailController.text = data['email'] ?? '';
+          _descriptionController.text = data['description'] ?? '';
+          _isLoading = false;
+        });
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Failed to load doctor profile'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Error connecting to server'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
+  Future<void> _saveProfile() async {
+    if (!_validateInputs()) return;
+
+    try {
+      final response = await http.put(
+        Uri.parse('http://localhost:5001/doctors/$doctorId'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({
+          'surname': _nameController.text,
+          'speciality': _specialityController.text,
+          'phonenumber': _phoneController.text,
+          'address': _locationController.text,
+          'email': _emailController.text,
+          'description': _descriptionController.text,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Profile Updated Successfully')),
+        );
+        Navigator.pop(context);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Failed to update profile'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Error connecting to server'),
+          backgroundColor: Colors.red,
+        ),
+      );
     }
   }
 
@@ -59,6 +125,7 @@ class _DocModifyProfileState extends State<DocModifyProfile> {
     _emailController.dispose();
     _descriptionController.dispose();
     _nameController.dispose();
+    _specialityController.dispose();
     super.dispose();
   }
 
@@ -74,144 +141,24 @@ class _DocModifyProfileState extends State<DocModifyProfile> {
             color: dark_purple,
           ),
         ),
-        const SizedBox(height: 8),
-        TextField(
-          controller: controller,
-          decoration: InputDecoration(
-            hintStyle: const TextStyle(color: Colors.grey),
-            filled: true,
-            fillColor: Colors.white,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide.none,
+        const SizedBox(height: 5),
+        Container(
+          width: 250,
+          child: TextField(
+            controller: controller,
+            decoration: InputDecoration(
+              hintStyle: const TextStyle(color: Colors.grey),
+              filled: true,
+              fillColor: Colors.white,
+              contentPadding: const EdgeInsets.symmetric(vertical: 1, horizontal: 10),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide.none,
+              ),
             ),
           ),
         ),
       ],
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              backgroundGradient1,
-              backgroundGradient2,
-            ],
-            begin: Alignment.bottomRight,
-            end: Alignment.topLeft,
-          ),
-        ),
-        padding: const EdgeInsets.fromLTRB(40, 16, 25, 16),
-        child: ListView(
-          children: [
-            Expanded(
-              child: Row(
-                //mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: Image.asset('/doctor_default_background.png',
-                            height: 180, width: 100, fit: BoxFit.cover)),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Expanded(
-                    flex: 3,
-                    child: Column(
-                      children: [
-                        _buildTextField('Nom', _nameController),
-                        const SizedBox(height: 20),
-                        _buildTextField('Specialité', _specilatiteController),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
-            const SizedBox(height: 100),
-            _buildIconTextField(
-                Icons.phone, _phoneController, "numero de telephone"),
-            const SizedBox(height: 16),
-            _buildIconTextField(Icons.location_on, _locationController,
-                "entrer votre localistion"),
-            const SizedBox(height: 16),
-            _buildIconTextField(
-                Icons.email, _emailController, "entrer votre email"),
-            const SizedBox(height: 24),
-            const Text(
-              "Description",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: dark_purple,
-              ),
-            ),
-            const SizedBox(height: 8),
-            TextField(
-              controller: _descriptionController,
-              maxLines: 5,
-              decoration: InputDecoration(
-                fillColor: Colors.white,
-                filled: true,
-                hintText: "entrer une description qui vous represente",
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Colors.white, width: 1),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Colors.white, width: 2),
-                ),
-              ),
-            ),
-            const SizedBox(height: 24),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.grey[300],
-                    foregroundColor: Colors.black,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text("Annuler"),
-                ),
-                const SizedBox(width: 15),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: dark_purple,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  onPressed: _saveProfile,
-                  child: const Text("Modifier"),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
     );
   }
 
@@ -249,6 +196,132 @@ class _DocModifyProfileState extends State<DocModifyProfile> {
           ),
         ),
       ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              backgroundGradient1,
+              backgroundGradient2,
+            ],
+            begin: Alignment.bottomRight,
+            end: Alignment.topLeft,
+          ),
+        ),
+        padding: const EdgeInsets.fromLTRB(40, 16, 25, 16),
+        child: _isLoading
+            ? Center(child: CircularProgressIndicator())
+            : ListView(
+                children: [
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 4,
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.asset(
+                                  '/doctor_default_background.png',
+                                  height: 180,
+                                  width: 110,
+                                  fit: BoxFit.cover)),
+                        ),
+                        const SizedBox(width: 20),
+                        Expanded(
+                          flex: 5,
+                          child: Column(
+                            children: [
+                              _buildTextField('Nom', _nameController),
+                              const SizedBox(height: 10),
+                              _buildTextField('Specialité', _specialityController), // Fixed here
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 40),
+                  _buildIconTextField(
+                      Icons.phone, _phoneController, "numero de telephone"),
+                  const SizedBox(height: 16),
+                  _buildIconTextField(Icons.location_on, _locationController,
+                      "entrer votre localisation"),
+                  const SizedBox(height: 16),
+                  _buildIconTextField(
+                      Icons.email, _emailController, "entrer votre email"),
+                  const SizedBox(height: 24),
+                  const Text(
+                    "Description",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: dark_purple,
+                    ),
+                  ),
+                  const SizedBox(height: 7),
+                  TextField(
+                    controller: _descriptionController,
+                    maxLines: 5,
+                    decoration: InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
+                      hintText: "entrer une description qui vous represente",
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(color: Colors.white, width: 1),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(color: Colors.white, width: 2),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 22),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.grey[300],
+                          foregroundColor: Colors.black,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text("Annuler"),
+                      ),
+                      const SizedBox(width: 15),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: dark_purple,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        onPressed: _saveProfile,
+                        child: const Text("Modifier"),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+      ),
     );
   }
 }

@@ -1,5 +1,7 @@
+// doctor_list_screen.dart
 import 'package:flutter/material.dart';
 import 'package:mydoctorpage/views/themes/colors.dart';
+
 
 class DoctorCard extends StatelessWidget {
   final String doctorName;
@@ -9,38 +11,37 @@ class DoctorCard extends StatelessWidget {
   final VoidCallback onTap;
 
   const DoctorCard({
-    Key? key,
+    super.key,
     required this.doctorName,
     required this.specialty,
     required this.phonenumber,
     required this.location,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 4, // Adds a shadow effect
+      elevation: 4,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(32), // Rounded corners
+        borderRadius: BorderRadius.circular(32),
       ),
       child: Container(
         width: MediaQuery.of(context).size.width * 0.901,
         padding: const EdgeInsets.all(12.0),
         decoration: BoxDecoration(
-          image: DecorationImage(
+          image: const DecorationImage(
             image: AssetImage('assets/gradient.png'),
             fit: BoxFit.cover,
           ),
-          borderRadius:
-              BorderRadius.circular(25), // Rounded corners for the background
+          borderRadius: BorderRadius.circular(25),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 40,
                   backgroundImage: AssetImage('assets/th.jpeg'),
                 ),
@@ -108,7 +109,7 @@ class DoctorCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   "Prenez un rendez-vous",
                   style: TextStyle(
                     color: Colors.white,
