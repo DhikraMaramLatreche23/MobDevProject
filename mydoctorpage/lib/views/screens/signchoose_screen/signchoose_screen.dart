@@ -22,45 +22,48 @@ class _SignChooseScreenState extends State<SignChooseScreen> {
       body: Container(
         width: double.infinity,
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
+           gradient: LinearGradient(
             colors: [
-              Color.fromARGB(255, 53, 115, 167),
-              Color.fromARGB(255, 194, 214, 240)
+              backgroundGradient1,
+              backgroundGradient2,
+
+           
             ],
             begin: Alignment.bottomRight,
             end: Alignment.topLeft,
+            
           ),
+        
         ),
         child: Center(
           child: Stack(
             children: [
               Column(
-                // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(height: 40),
-                  const Text(
-                    "Inscrivez-vous",
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF03045E),
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
+                       const Text(
+                        "Inscrivez-vous",
+                        style: TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF03045E),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                   const SizedBox(height: 5),
                   Image.asset(
                     "assets/images/doctorandschedule.png",
                   ),
                   const SizedBox(height: 5),
                   const Text(
-                    "Continuer en tant que",
-                    style: TextStyle(
-                      fontSize: 21,
-                      fontWeight: FontWeight.w300,
-                      color: Color(0xFF03045E),
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
+                        "Continuer en tant que",
+                        style: TextStyle(
+                          fontSize: 21,
+                          fontWeight: FontWeight.w300,
+                          color: Color(0xFF03045E),
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
                   const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -116,7 +119,8 @@ class _SignChooseScreenState extends State<SignChooseScreen> {
                                 : Colors.transparent,
                             borderRadius: BorderRadius.circular(20.0),
                             border: Border.all(
-                              color: const Color(0xFF03045E),
+                              color:
+                                  const Color(0xFF03045E),
                               width: 2.0,
                             ),
                           ),
@@ -126,7 +130,7 @@ class _SignChooseScreenState extends State<SignChooseScreen> {
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w500,
-                                color: Color.fromARGB(255, 255, 255, 255),
+                              color: Color.fromARGB(255, 255, 255, 255),
                               ),
                             ),
                           ),

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../bloc_folders/login/loginPatient/bloc/login_bloc.dart';
 import '../../../bloc_folders/login/loginPatient/bloc/login_event.dart';
 import '../../../bloc_folders/login/loginPatient/bloc/login_state.dart';
-import '../signup/signUpPatientPageTwo.dart'; // Assuming you're navigating to this page
+import '../signup/signUpPatientPageTwo.dart'; 
 
 class Loginpatient extends StatelessWidget {
   const Loginpatient({super.key});

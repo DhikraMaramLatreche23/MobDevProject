@@ -7,6 +7,10 @@ import logging
 app = Quart(__name__)
 app = cors(app, allow_origin="*")
 
+temp_doctor_registrations = {}
+temp_patient_registrations = {}
+
+pool = None
 
 # PostgreSQL database configuration
 DB_CONFIG = {
@@ -26,6 +30,173 @@ async def get_db_connection():
         host=DB_CONFIG['host'],
         port=DB_CONFIG['port']
     )
+
+
+loop = asyncio.new_event_loop()
+asyncio.set_event_loop(loop)
+loop.run_until_complete(init_db())
+
+# Doctor signup steps
+@app.route('/signup/doctor/step1', methods=['POST'])
+def signup_doctor_step1():
+    data = request.get_json()
+    print("Received step 1 data:", data)
+
+    async def _signup_step1():
+        async with pool.acquire() as conn:
+            # Check if email exists
+            existing_doctor = await conn.fetchval(
+                'SELECT COUNT(*) FROM doctor WHERE email = $1',
+                data.get('email')
+            )
+            if existing_doctor:
+                return {"error": "Email already registered"}, 400
+
+            # Store step 1 data temporarily
+            temp_doctor_registrations[data['email']] = {
+                'name': data['name'],
+                'surname': data['surname'],
+                'email': data['email'],
+                'password': data['password']
+            }
+            
+            return {"message": "Step 1 completed successfully"}, 200
+
+    try:
+        result, status = loop.run_until_complete(_signup_step1())
+        return jsonify(result), status
+    except Exception as e:
+        print(f"Error in step 1: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/signup/doctor/step2', methods=['POST'])
+def signup_doctor_step2():
+    data = request.get_json()
+    print("Received step 2 data:", data)
+
+    async def _signup_step2():
+        try:
+            email = data.get('email')  # You'll need to pass the email in step 2
+            if email not in temp_doctor_registrations:
+                return {"error": "Step 1 data not found. Please complete step 1 first."}, 400
+
+            step1_data = temp_doctor_registrations[email]
+            
+            async with pool.acquire() as conn:
+                # Insert complete doctor data
+                await conn.execute('''
+                    INSERT INTO doctor (name, surname, email, password, speciality, address, phonenumber, description)
+                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+                ''', 
+                    step1_data['name'],
+                    step1_data['surname'],
+                    step1_data['email'],
+                    step1_data['password'],
+                    data['speciality'],
+                    data['address'],
+                    data['phone'],
+                    data['description']
+                )
+
+                # Clean up temporary storage
+                del temp_doctor_registrations[email]
+                
+                return {"message": "Doctor registration successful"}, 201
+
+        except Exception as e:
+            print(f"Error in step 2: {e}")
+            return {"error": str(e)}, 500
+
+    try:
+        result, status = loop.run_until_complete(_signup_step2())
+        return jsonify(result), status
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify({"error": str(e)}), 500
+
+# Patient signup steps
+@app.route('/signup/patient', methods=['POST'])
+def signup_patient():
+    data = request.get_json()
+    print("Received patient signup data:", data)
+
+    async def _signup():
+        try:
+            async with pool.acquire() as conn:
+                # Check if email exists
+                existing_patient = await conn.fetchval(
+                    'SELECT COUNT(*) FROM patients WHERE email = $1',
+                    data.get('email')
+                )
+                if existing_patient:
+                    return {"error": "Email already registered"}, 400
+
+                # Insert patient data directly into database
+                await conn.execute('''
+                    INSERT INTO patients (name, surname, email, password)
+                    VALUES ($1, $2, $3, $4)
+                ''',
+                    data['name'],
+                    data['surname'],
+                    data['email'],
+                    data['password']
+                )
+                
+                return {"message": "Patient registration successful"}, 201
+
+        except Exception as e:
+            print(f"Error in patient signup: {e}")
+            return {"error": str(e)}, 500
+
+    try:
+        result, status = loop.run_until_complete(_signup())
+        return jsonify(result), status
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify({"error": str(e)}), 500
+
+# Keep the login endpoints as they are
+@app.route('/login/doctor', methods=['POST'])
+def login_doctor():
+    data = request.get_json()
+
+    async def _login():
+        async with pool.acquire() as conn:
+            user = await conn.fetchrow(
+                "SELECT DoctorId, Name, Surname, Speciality FROM Doctor WHERE Email = $1 AND Password = $2",
+                data.get('email'),
+                data.get('password')
+            )
+            if user:
+                return {"message": "Login successful", "user": dict(user)}, 200
+            return {"error": "Invalid email or password"}, 401
+
+    try:
+        result, status = loop.run_until_complete(_login())
+        return jsonify(result), status
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/login/patient', methods=['POST'])
+def login_patient():
+    data = request.get_json()
+
+    async def _login():
+        async with pool.acquire() as conn:
+            user = await conn.fetchrow(
+                "SELECT PatientId, Name, Surname FROM patients WHERE Email = $1 AND Password = $2",
+                data.get('email'),
+                data.get('password')
+            )
+            if user:
+                return {"message": "Login successful", "user": dict(user)}, 200
+            return {"error": "Invalid email or password"}, 401
+
+    try:
+        result, status = loop.run_until_complete(_login())
+        return jsonify(result), status
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.route('/doctors', methods=['GET'])
 async def get_doctors():

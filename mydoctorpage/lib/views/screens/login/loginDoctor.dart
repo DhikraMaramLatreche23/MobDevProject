@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../bloc_folders/login/loginDoctor/bloc/login_bloc.dart';
 import '../../../bloc_folders/login/loginDoctor/bloc/login_event.dart';
 import '../../../bloc_folders/login/loginDoctor/bloc/login_state.dart';
-import '../signup/signUpDoctorPageOne.dart'; // Assuming you're navigating to this page
+import '../signup/signUpDoctorPageOne.dart';
 
 
 class LoginDoctor extends StatelessWidget {
@@ -69,22 +69,22 @@ class _LoginFormState extends State<LoginForm> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              "assets/images/background.png", // Your background image
+              "assets/images/background.png",
               fit: BoxFit.cover,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 50.0), // Space between top and content
+            padding: const EdgeInsets.only(top: 50.0),
             child: SingleChildScrollView(
               child: Column(
                 children: [
                   const SizedBox(height: 20),
                   const Text(
-                    "Se connecter - Docteur", // Translated title
+                    "Se connecter - Docteur",
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF03045E), // Consistent color
+                      color: Color(0xFF03045E), 
                     ),
                   ),
                   const SizedBox(height: 30),
@@ -94,12 +94,12 @@ class _LoginFormState extends State<LoginForm> {
                     hintText: 'Email',
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Entrez votre email'; // Translated error message
+                        return 'Entrez votre email'; 
                       }
                       final emailRegex =
                           RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
                       if (!emailRegex.hasMatch(value)) {
-                        return 'Entrez un email valide'; // Translated error message
+                        return 'Entrez un email valide'; 
                       }
                       return null;
                     },
@@ -108,11 +108,11 @@ class _LoginFormState extends State<LoginForm> {
                   CustomTextField(
                     controller: _passwordController,
                     icon: Icons.lock,
-                    hintText: 'Mot de passe', // Translated hint text
+                    hintText: 'Mot de passe', 
                     isPassword: true,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Entrez votre mot de passe'; // Translated error message
+                        return 'Entrez votre mot de passe';
                       }
                       return null;
                     },
@@ -132,7 +132,7 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                     child: const Text(
                       'Se connecter',
-                      style: TextStyle(fontSize: 20), // Button text style
+                      style: TextStyle(fontSize: 20),
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -141,7 +141,7 @@ class _LoginFormState extends State<LoginForm> {
                       Navigator.pushNamed(context, SignUpDoctor.pageRoute);
                     },
                     child: const Text(
-                      'Vous n\'avez pas de compte? Créez un compte', // Translated text
+                      'Vous n\'avez pas de compte? Créez un compte', 
                       style: TextStyle(
                         color: Color(0xFF03045E),
                         fontSize: 18,

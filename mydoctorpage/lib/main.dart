@@ -22,6 +22,12 @@ import 'views/screens/signup/signUpDoctorPageTwo.dart';
 import 'views/screens/login/loginDoctor.dart';
 import 'views/screens/login/loginPatient.dart';
 
+import './bloc_folders/signup/signup_doctor/bloc/signup_bloc.dart';
+import './bloc_folders/signup/signup_patient/bloc/signup_patient_bloc.dart';
+import './bloc_folders/login/loginDoctor/bloc/login_bloc.dart' as doctor_bloc;
+import './bloc_folders/login/loginPatient/bloc/login_bloc.dart' as patient_bloc;
+
+
 void main() {
   runApp(const MainApp());
 }
@@ -31,7 +37,14 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => SignupBloc()), // Doctor signup
+        BlocProvider(create: (_) => SignupPatientBloc()), // Patient signup
+        BlocProvider(create: (_) => doctor_bloc.LoginBloc()), // Doctor login
+        BlocProvider(create: (_) => patient_bloc.LoginBloc()), // Patient login
+      ],
+      child: MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme: GoogleFonts.poppinsTextTheme(),
@@ -62,6 +75,7 @@ class MainApp extends StatelessWidget {
         '/PatientScreen': (context) => const PatientScreen(),
 
       },
+      ),
     );
   }
 }
