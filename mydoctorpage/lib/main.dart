@@ -4,15 +4,8 @@ import 'package:mydoctorpage/views/screens/DoctorPageDoctorView.dart';
 import 'package:mydoctorpage/views/screens/DoctorPagePatientView.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mydoctorpage/views/screens/HomePage.dart';
-import 'package:mydoctorpage/views/screens/CategoryTooth.dart';
-import 'package:mydoctorpage/views/screens/CategoryHeart.dart';
-import 'package:mydoctorpage/views/screens/CategoryBrain.dart';
-import 'package:mydoctorpage/views/screens/CategoryEye.dart';
-import 'package:mydoctorpage/views/screens/CategoryKidneys.dart';
-import 'package:mydoctorpage/views/screens/CategoryGastro.dart';
 import 'package:mydoctorpage/views/screens/PatientScreen.dart';
 import 'package:mydoctorpage/views/screens/CategoryBones.dart';
-import 'package:mydoctorpage/views/screens/CategoryPneumo.dart';
 import 'views/screens/signchoose_screen/signchoose_screen.dart';
 import 'package:mydoctorpage/views/screens/doc_modify_profile.dart';
 import 'views/screens/signup/signUpDoctorPageOne.dart';
@@ -21,7 +14,7 @@ import 'views/screens/signup/signUpPatientPageTwo.dart';
 import 'views/screens/signup/signUpDoctorPageTwo.dart';
 import 'views/screens/login/loginDoctor.dart';
 import 'views/screens/login/loginPatient.dart';
-
+import 'package:mydoctorpage/bloc/category_bloc.dart';
 import './bloc_folders/signup/signup_doctor/bloc/signup_bloc.dart';
 import './bloc_folders/signup/signup_patient/bloc/signup_patient_bloc.dart';
 import './bloc_folders/login/loginDoctor/bloc/login_bloc.dart' as doctor_bloc;
@@ -43,6 +36,7 @@ class MainApp extends StatelessWidget {
         BlocProvider(create: (_) => SignupPatientBloc()), // Patient signup
         BlocProvider(create: (_) => doctor_bloc.LoginBloc()), // Doctor login
         BlocProvider(create: (_) => patient_bloc.LoginBloc()), // Patient login
+        BlocProvider(create: (_) => CategoryBloc()),
       ],
       child: MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -51,7 +45,7 @@ class MainApp extends StatelessWidget {
       ),
       home: const SignChooseScreen(),
       routes: {
-        HomePage.pageRoute: (ctx) => const HomePage(),
+        // HomePage.pageRoute: (ctx) => const HomePage(),
         SignChooseScreen.pageRoute: (ctx) => const SignChooseScreen(),
         SignUpPatient.pageRoute: (ctx) => const SignUpPatient(),
         SignPatient.pageRoute: (ctx) => const SignPatient(),
@@ -60,20 +54,17 @@ class MainApp extends StatelessWidget {
         Logindoctor.pageRoute: (ctx) => const Logindoctor(),
         Loginpatient.pageRoute: (ctx) => const Loginpatient(),
         '/home': (context) => const HomePage(),
+        HomePage.routeName: (context) => const HomePage(),
         '/DoctorPagePatientView': (context) => const DoctorPage(),
         '/rdv': (context) => const DoctorDoctor(),
         '/CategoryPage': (context) => const CategoryPage(),
         '/allcategories': (context) => const Allcategories(),
-        '/CategoryHeartPage': (context) => const CategoryHeartPage(),
-        '/CategoryBrainPage': (context) => const CategoryBrainPage(),
-        '/CategoryEyePage': (context) => const CategoryEyePage(),
-        '/CategoryKidneysPage': (context) => const CategoryKidneysPage(),
-        '/CategoryBonesPage': (context) => const CategoryBonesPage(),
-        '/CategoryGastroPage': (context) => const CategoryGastroPage(),
-        '/CategoryPneumoPage': (context) => const CategoryPneumoPage(),
         '/doc_modify_profile': (context) => const DocModifyProfile(),
         '/PatientScreen': (context) => const PatientScreen(),
-
+        '/CategoryPage': (context) => BlocProvider.value(
+              value: BlocProvider.of<CategoryBloc>(context),
+              child: const CategoryPage(),
+            ),
       },
       ),
     );
