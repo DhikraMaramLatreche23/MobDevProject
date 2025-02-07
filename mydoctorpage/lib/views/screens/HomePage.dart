@@ -1,14 +1,15 @@
-// home_page.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mydoctorpage/bloc/doctor_bloc.dart';
-import 'package:mydoctorpage/views/widgets/doctorWidget.dart'; // Imported the DoctorCard widget
+import 'package:mydoctorpage/bloc/category_event.dart' as event;
+import 'package:mydoctorpage/bloc/category_bloc.dart';
+import 'package:mydoctorpage/views/widgets/doctorWidget.dart';
 import 'package:mydoctorpage/views/widgets/BottomBar.dart';
 import 'package:mydoctorpage/views/widgets/CategoryItem.dart';
 import 'package:mydoctorpage/views/themes/colors.dart';
 
 class HomePage extends StatefulWidget {
-  static const String pageRoute = "/HomePage";
+  static const String routeName = "/HomePage";
   const HomePage({super.key});
 
   @override
@@ -60,8 +61,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => DoctorBloc()..add(FetchDoctors()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => DoctorBloc()..add(FetchDoctors())),
+        BlocProvider(create: (_) => CategoryBloc()),
+      ],
       child: Scaffold(
         body: ListView(
           children: [
@@ -89,18 +93,11 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       IconButton(
                         icon: const Icon(Icons.menu, color: dark_purple),
-                        onPressed: () {
-                          Navigator.pushReplacementNamed(context, '/PatientScreen');
-                        },
+                        onPressed: () {},
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushReplacementNamed(context, '/doc_modify_profile');
-                        },
-                        child: const CircleAvatar(
-                          backgroundColor: Colors.white,
-                          child: Icon(Icons.person, color: dark_purple),
-                        ),
+                      const CircleAvatar(
+                        backgroundColor: Colors.white,
+                        child: Icon(Icons.person, color: dark_purple),
                       ),
                     ],
                   ),
@@ -137,11 +134,11 @@ class _HomePageState extends State<HomePage> {
                     child: TextField(
                       controller: _searchController,
                       focusNode: _searchFocusNode,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: "Chercher un docteur",
                         border: InputBorder.none,
                         prefixIcon: Icon(Icons.search, color: dark_purple),
-                        contentPadding: const EdgeInsets.symmetric(
+                        contentPadding: EdgeInsets.symmetric(
                           vertical: 12,
                           horizontal: 16,
                         ),
@@ -189,12 +186,232 @@ class _HomePageState extends State<HomePage> {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
-                        CategoryItem(
-                          title: 'Cardiologie',
-                          imagePath: 'assets/heart.png',
+                        GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(context, '/CategoryHeartPage');
+                            context.read<CategoryBloc>().add(
+                                  const event.SelectCategory({
+                                    'name': 'Cardiologie',
+                                    'description':
+                                        'Specialists in heart-related conditions.',
+                                    'imagePath': 'assets/heart.png',
+                                  }),
+                                );
+                            Navigator.pushNamed(context, '/CategoryPage');
                           },
+                          child: CategoryItem(
+                            title: 'Cardiology',
+                            imagePath: 'assets/heart.png',
+                            onTap: () {
+                              context.read<CategoryBloc>().add(
+                                    const event.SelectCategory({
+                                      'name': 'Cardiologie',
+                                      'description':
+                                          'Specialists in heart-related conditions.',
+                                      'imagePath': 'assets/heart.png',
+                                    }),
+                                  );
+                              Navigator.pushNamed(context, '/CategoryPage');
+                            },
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            context.read<CategoryBloc>().add(
+                                  const event.SelectCategory({
+                                    'name': 'Dentaire',
+                                    'description':
+                                        'Specialists in heart-related conditions.',
+                                    'imagePath': 'assets/tooth.png',
+                                  }),
+                                );
+                            Navigator.pushNamed(context, '/CategoryPage');
+                          },
+                          child: CategoryItem(
+                            title: 'Dentaire',
+                            imagePath: 'assets/tooth.png',
+                            onTap: () {
+                              context.read<CategoryBloc>().add(
+                                    const event.SelectCategory({
+                                      'name': 'Dentaire',
+                                      'description':
+                                          'Specialists in heart-related conditions.',
+                                      'imagePath': 'assets/tooth.png',
+                                    }),
+                                  );
+                              Navigator.pushNamed(context, '/CategoryPage');
+                            },
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            context.read<CategoryBloc>().add(
+                                  const event.SelectCategory({
+                                    'name': 'Neurologie',
+                                    'description':
+                                        'Specialists in heart-related conditions.',
+                                    'imagePath': 'assets/brain.png',
+                                  }),
+                                );
+                            Navigator.pushNamed(context, '/CategoryPage');
+                          },
+                          child: CategoryItem(
+                            title: 'Neurology',
+                            imagePath: 'assets/brain.png',
+                            onTap: () {
+                              context.read<CategoryBloc>().add(
+                                    const event.SelectCategory({
+                                      'name': 'Neurologie',
+                                      'description':
+                                          'Specialists in heart-related conditions.',
+                                      'imagePath': 'assets/brain.png',
+                                    }),
+                                  );
+                              Navigator.pushNamed(context, '/CategoryPage');
+                            },
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            context.read<CategoryBloc>().add(
+                                  const event.SelectCategory({
+                                    'name': 'Ophtalmologie',
+                                    'description':
+                                        'Specialists in heart-related conditions.',
+                                    'imagePath': 'assets/eye.png',
+                                  }),
+                                );
+                            Navigator.pushNamed(context, '/CategoryPage');
+                          },
+                          child: CategoryItem(
+                            title: 'Ophtalmologie',
+                            imagePath: 'assets/eye.png',
+                            onTap: () {
+                              context.read<CategoryBloc>().add(
+                                    const event.SelectCategory({
+                                      'name': 'Ophtalmologie',
+                                      'description':
+                                          'Specialists in heart-related conditions.',
+                                      'imagePath': 'assets/eye.png',
+                                    }),
+                                  );
+                              Navigator.pushNamed(context, '/CategoryPage');
+                            },
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            context.read<CategoryBloc>().add(
+                                  const event.SelectCategory({
+                                    'name': 'Pneumologie',
+                                    'description':
+                                        'Specialists in heart-related conditions.',
+                                    'imagePath': 'assets/lungs.png',
+                                  }),
+                                );
+                            Navigator.pushNamed(context, '/CategoryPage');
+                          },
+                          child: CategoryItem(
+                            title: 'Pneumologie',
+                            imagePath: 'assets/lungs.png',
+                            onTap: () {
+                              context.read<CategoryBloc>().add(
+                                    const event.SelectCategory({
+                                      'name': 'Pneumologie',
+                                      'description':
+                                          'Specialists in heart-related conditions.',
+                                      'imagePath': 'assets/lungs.png',
+                                    }),
+                                  );
+                              Navigator.pushNamed(context, '/CategoryPage');
+                            },
+                          ),
+                        ),
+
+                        GestureDetector(
+                          onTap: () {
+                            context.read<CategoryBloc>().add(
+                                  const event.SelectCategory({
+                                    'name': 'Orthopediste',
+                                    'description':
+                                        'Specialists in heart-related conditions.',
+                                    'imagePath': 'assets/bones.png',
+                                  }),
+                                );
+                            Navigator.pushNamed(context, '/CategoryPage');
+                          },
+                          child: CategoryItem(
+                            title: 'Orthopediste',
+                            imagePath: 'assets/bones.png',
+                            onTap: () {
+                              context.read<CategoryBloc>().add(
+                                    const event.SelectCategory({
+                                      'name': 'Orthopediste',
+                                      'description':
+                                          'Specialists in heart-related conditions.',
+                                      'imagePath': 'assets/bones.png',
+                                    }),
+                                  );
+                              Navigator.pushNamed(context, '/CategoryPage');
+                            },
+                          ),
+                        ),
+
+                        GestureDetector(
+                          onTap: () {
+                            context.read<CategoryBloc>().add(
+                                  const event.SelectCategory({
+                                    'name': 'Urologie',
+                                    'description':
+                                        'Specialists in heart-related conditions.',
+                                    'imagePath': 'assets/kidneys.png',
+                                  }),
+                                );
+                            Navigator.pushNamed(context, '/CategoryPage');
+                          },
+                          child: CategoryItem(
+                            title: 'Urologie',
+                            imagePath: 'assets/kidneys.png',
+                            onTap: () {
+                              context.read<CategoryBloc>().add(
+                                    const event.SelectCategory({
+                                      'name': 'Urologie',
+                                      'description':
+                                          'Specialists in heart-related conditions.',
+                                      'imagePath': 'assets/kidneys.png',
+                                    }),
+                                  );
+                              Navigator.pushNamed(context, '/CategoryPage');
+                            },
+                          ),
+                        ),
+
+                        GestureDetector(
+                          onTap: () {
+                            context.read<CategoryBloc>().add(
+                                  const event.SelectCategory({
+                                    'name': 'Gastrologie',
+                                    'description':
+                                        'Specialists in heart-related conditions.',
+                                    'imagePath': 'assets/gastro.png',
+                                  }),
+                                );
+                            Navigator.pushNamed(context, '/CategoryPage');
+                          },
+                          child: CategoryItem(
+                            title: 'Gastrologie',
+                            imagePath: 'assets/gastro.png',
+                            onTap: () {
+                              context.read<CategoryBloc>().add(
+                                    const event.SelectCategory({
+                                      'name': 'Gastrologie',
+                                      'description':
+                                          'Specialists in heart-related conditions.',
+                                      'imagePath': 'assets/gastro.png',
+                                    }),
+                                  );
+                              Navigator.pushNamed(context, '/CategoryPage');
+                            },
+                          ),
                         ),
                       ],
                     ),
@@ -254,8 +471,10 @@ class _HomePageState extends State<HomePage> {
                                     doctor['address'] ?? 'Unknown Address',
                                 onTap: () {
                                   Navigator.pushNamed(
-                                      context, '/DoctorPagePatientView',
-                                      arguments: doctor);
+                                    context,
+                                    '/DoctorPagePatientView',
+                                    arguments: doctor,
+                                  );
                                 },
                               );
                             },
