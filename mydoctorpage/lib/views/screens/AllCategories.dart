@@ -57,22 +57,6 @@ class _AllcategoriesState extends State<Allcategories> {
       {'title': 'Radiologie', 'imagePath': 'assets/radio.png'},
       {'title': 'ORL', 'imagePath': 'assets/orl.png'},
       {'title': 'Endocrinologuie', 'imagePath': 'assets/endocrino.png'},
-      {'title': 'Pediatrie', 'imagePath': 'assets/heart.png'},
-      {'title': 'Phsychiatrie', 'imagePath': 'assets/tooth.png'},
-      {'title': 'Dentaire', 'imagePath': 'assets/tooth.png'},
-      {'title': 'Cardiologie', 'imagePath': 'assets/heart.png'},
-      {'title': 'Dentaire', 'imagePath': 'assets/tooth.png'},
-      {'title': 'Cardiologie', 'imagePath': 'assets/heart.png'},
-      {'title': 'Dentaire', 'imagePath': 'assets/tooth.png'},
-      {'title': 'Cardiologie', 'imagePath': 'assets/heart.png'},
-      {'title': 'Dentaire', 'imagePath': 'assets/tooth.png'},
-      {'title': 'Cardiologie', 'imagePath': 'assets/heart.png'},
-      {'title': 'Dentaire', 'imagePath': 'assets/tooth.png'},
-      {'title': 'Cardiologie', 'imagePath': 'assets/heart.png'},
-      {'title': 'Dentaire', 'imagePath': 'assets/tooth.png'},
-      {'title': 'Cardiologie', 'imagePath': 'assets/heart.png'},
-      {'title': 'Dentaire', 'imagePath': 'assets/tooth.png'},
-      {'title': 'Cardiologie', 'imagePath': 'assets/heart.png'},
     ];
 
     return Scaffold(
@@ -84,7 +68,7 @@ class _AllcategoriesState extends State<Allcategories> {
         child: GridView.builder(
           itemCount: categories.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3, // 3 items per row
+            crossAxisCount: 3,
             crossAxisSpacing: 16.0,
             mainAxisSpacing: 16.0,
           ),
