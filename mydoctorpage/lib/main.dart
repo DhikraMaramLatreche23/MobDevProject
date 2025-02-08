@@ -5,7 +5,6 @@ import 'package:mydoctorpage/views/screens/DoctorPagePatientView.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mydoctorpage/views/screens/HomePage.dart';
 import 'package:mydoctorpage/views/screens/PatientScreen.dart';
-import 'package:mydoctorpage/views/screens/CategoryBones.dart';
 import 'views/screens/signchoose_screen/signchoose_screen.dart';
 import 'package:mydoctorpage/views/screens/doc_modify_profile.dart';
 import 'views/screens/signup/signUpDoctorPageOne.dart';
