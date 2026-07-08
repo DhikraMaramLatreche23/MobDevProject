@@ -1,4 +1,4 @@
-# MARKILI - Doctorâ€“Patient Appointment Management App
+# MARKILI - Doctor-Patient Appointment Management App
 
 ## Table of Contents
 1. [Project Overview](#project-overview)
@@ -16,7 +16,7 @@
 <a id="project-overview"></a>
 ## Project Overview
 
-The Doctorâ€“Patient Appointment Management App is a mobile application designed to streamline the scheduling and management of medical appointments. It provides a simple and intuitive platform for patients to find available doctors, book appointments, and manage their upcoming visits. Doctors can set their availability, view bookings, and manage their schedules efficiently.
+The Doctor-Patient Appointment Management App is a mobile application designed to streamline the scheduling and management of medical appointments. It provides a simple and intuitive platform for patients to find available doctors, book appointments, and manage their upcoming visits. Doctors can set their availability, view bookings, and manage their schedules efficiently.
 
 This system enhances communication between healthcare providers and patients while reducing administrative workload.
 
